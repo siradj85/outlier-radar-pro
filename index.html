@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>NicheScope Pro — ذكاء اختيار نتشات يوتوب</title>
+<title>NicheScope Pro — YouTube Niche Intelligence</title>
 <style>
   :root{
     --bg:#070b18; --bg2:#0c1428; --card:#111c33; --line:#22304d; --txt:#e9eefc;
@@ -20,36 +20,38 @@
   .logo{width:48px;height:48px;border-radius:13px;background:linear-gradient(135deg,var(--neon),var(--accent));
     display:grid;place-items:center;font-size:24px;box-shadow:0 6px 22px #22d3ee44}
   .top h1{margin:0;font-size:1.55rem} .top p{margin:0;color:var(--muted);font-size:.85rem}
+  .langbtn{margin-inline-start:auto;background:var(--chip);border:1px solid var(--line);color:var(--txt);
+    border-radius:10px;padding:9px 14px;cursor:pointer;font-weight:800;font-size:.9rem}
   .panel{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);
     border-radius:16px;padding:16px;margin-top:14px}
   .lbl{font-size:.8rem;color:var(--muted);margin-bottom:6px;display:block}
-  input,select,textarea{width:100%;background:#0a1222;border:1px solid var(--line);color:var(--txt);
+  input,select{width:100%;background:#0a1222;border:1px solid var(--line);color:var(--txt);
     border-radius:10px;padding:11px 12px;font-size:.95rem;outline:none;font-family:inherit}
-  input:focus,select:focus,textarea:focus{border-color:var(--neon)}
-  textarea{resize:vertical;min-height:96px;line-height:2}
-  .row{display:flex;gap:12px;flex-wrap:wrap}
-  .col{flex:1;min-width:200px}
-  button{cursor:pointer;border:none;border-radius:11px;font-weight:800;font-size:1rem}
-  .go{width:100%;margin-top:14px;padding:15px;color:#04121f;
+  input:focus,select:focus{border-color:var(--neon)}
+  .row{display:flex;gap:12px;flex-wrap:wrap} .col{flex:1;min-width:200px}
+  .comprow{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+  .comprow input{flex:1}
+  .rm{background:#2a1320;border:1px solid #7f1d1d;color:#fecaca;border-radius:10px;
+    width:42px;height:42px;cursor:pointer;font-size:1rem;flex:none}
+  .addbtn{background:transparent;border:1px dashed var(--line);color:var(--neon);border-radius:10px;
+    padding:9px 14px;cursor:pointer;font-weight:700;font-size:.88rem}
+  button{border:none;font-family:inherit}
+  .go{width:100%;margin-top:14px;padding:15px;color:#04121f;border-radius:11px;font-weight:800;font-size:1rem;cursor:pointer;
     background:linear-gradient(135deg,var(--neon),var(--accent));box-shadow:0 8px 24px #22d3ee33}
   .go:hover{filter:brightness(1.07)} .go:disabled{opacity:.5;cursor:wait}
-  .info{line-height:1.95;color:var(--muted);font-size:.9rem}
-  .info b{color:var(--txt)}
+  .info{line-height:1.95;color:var(--muted);font-size:.9rem} .info b{color:var(--txt)}
   .legend{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
   .tag{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:.8rem}
-  /* loader */
   #loader{display:none;text-align:center;padding:18px}
   .ring{width:120px;height:120px;border-radius:50%;margin:6px auto 16px;
-    background:conic-gradient(var(--neon) var(--pct,0%),#1b2942 0);display:grid;place-items:center;transition:.3s}
+    background:conic-gradient(var(--neon) var(--pct,0%),#1b2942 0);display:grid;place-items:center;transition:.25s}
   .ring i{width:96px;height:96px;border-radius:50%;background:var(--bg2);display:grid;place-items:center;
     font-style:normal;font-weight:800;font-size:1.5rem;color:var(--neon)}
-  .stages{max-width:520px;margin:0 auto;text-align:start}
+  .stages{max-width:540px;margin:0 auto;text-align:start}
   .stg{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;margin:6px 0;
-    border:1px solid var(--line);background:#0c1426;color:var(--muted);transition:.3s}
+    border:1px solid var(--line);background:#0c1426;color:var(--muted);transition:.3s;font-size:.92rem}
   .stg.act{border-color:var(--neon);color:var(--txt);box-shadow:0 0 0 1px var(--neon) inset}
   .stg.done{color:var(--green);border-color:#14532d}
-  .stg b{font-size:.95rem}
-  /* verdict */
   #report{display:none}
   .verdict{border-radius:18px;padding:22px;text-align:center;margin-top:16px;border:2px solid}
   .verdict h2{margin:.2em 0;font-size:2rem} .verdict p{margin:.2em 0;font-size:1.05rem}
@@ -68,66 +70,46 @@
   .kw span{background:var(--chip);border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-size:.85rem}
   .secttl{margin:18px 2px 2px;font-size:1.1rem;display:flex;align-items:center;gap:8px}
   .err{background:#3b1320;border:1px solid #7f1d1d;color:#fecaca;border-radius:12px;padding:14px;margin-top:14px}
-  footer{color:var(--muted);text-align:center;font-size:.8rem;padding:26px 0 10px}
-  .bars{margin-top:6px} .bar{height:9px;border-radius:6px;background:#1b2942;overflow:hidden;margin:5px 0}
+  .bar{height:9px;border-radius:6px;background:#1b2942;overflow:hidden;margin:5px 0}
   .bar i{display:block;height:100%;border-radius:6px}
+  footer{color:var(--muted);text-align:center;font-size:.8rem;padding:26px 0 10px}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="top">
     <div class="logo">🛰️</div>
-    <div><h1>NicheScope <span style="color:var(--gold)">Pro</span></h1>
-      <p>ذكاء اختيار النتش: حلّل الجدوى والمنافسة الحقيقية قبل أن تبدأ</p></div>
+    <div><h1>NicheScope <span style="color:var(--gold)">Pro</span></h1><p data-i18n="subtitle"></p></div>
+    <button class="langbtn" id="langBtn" onclick="toggleLang()">ع</button>
   </div>
 
-  <!-- guide -->
   <div class="panel">
-    <div class="secttl">💡 كيف تعمل الأداة؟</div>
-    <p class="info">
-      أدخل اسم نتشك و3–5 قنوات منافسة، وسنحلّل بيانات يوتيوب الحيّة لنخبرك:
-      هل النتش <b style="color:var(--green)">فرصة ذهبية</b> أم <b style="color:var(--orange)">منافس</b> أم <b style="color:var(--red)">مُشبَع</b>؟
-      نعتمد على: <b>معامل الانتشار</b> (مشاهدات÷مشتركين)، <b>صعود القنوات حديثاً</b> (لا عمرها الظاهري)،
-      <b>الربح بالدولار</b> حسب التصنيف، <b>التشبّع</b>، <b>التفاعل</b>، و<b>ملاءمة المحتوى بلا وجه</b>.
-    </p>
+    <div class="secttl">💡 <span data-i18n="guideTitle"></span></div>
+    <p class="info" data-i18n-html="guideHtml"></p>
     <div class="legend">
-      <span class="tag" style="color:var(--green)">🟢 فرصة ذهبية</span>
-      <span class="tag" style="color:var(--orange)">🟠 منافس — يحتاج مجهوداً</span>
-      <span class="tag" style="color:var(--red)">🔴 مُشبَع — تجنّبه</span>
+      <span class="tag" style="color:var(--green)" data-i18n="legGreen"></span>
+      <span class="tag" style="color:var(--orange)" data-i18n="legOrange"></span>
+      <span class="tag" style="color:var(--red)" data-i18n="legRed"></span>
     </div>
   </div>
 
-  <!-- input -->
   <div class="panel">
     <div class="row">
-      <div class="col">
-        <label class="lbl">اسم النتش</label>
-        <input id="niche" placeholder="مثال: تاريخ إسلامي / تطوير ذات / ألعاب" />
-      </div>
-      <div class="col">
-        <label class="lbl">تصنيف النتش (لتقدير الأرباح)</label>
-        <select id="cat"></select>
-      </div>
+      <div class="col"><label class="lbl" data-i18n="nicheLabel"></label>
+        <input id="niche" data-i18n-ph="nichePh" /></div>
+      <div class="col"><label class="lbl" data-i18n="catLabel"></label>
+        <select id="cat"></select></div>
     </div>
-    <label class="lbl" style="margin-top:12px">قنوات منافسة (3–5) — كل قناة في سطر — يدعم @handle و الرابط و UC...</label>
-    <textarea id="comps" placeholder="@channel1
-https://youtube.com/@channel2
-UCxxxxxxxxxxxxxxxxxxxxxx"></textarea>
-    <button class="go" id="go">🛰️ ابدأ التحليل العميق</button>
+    <label class="lbl" style="margin-top:12px" data-i18n="compsLabel"></label>
+    <div id="compsList"></div>
+    <button class="addbtn" id="addBtn" onclick="addRow()"></button>
+    <button class="go" id="go" onclick="analyze()"></button>
   </div>
 
   <div id="errBox"></div>
-
-  <!-- loader -->
-  <div class="panel" id="loader">
-    <div class="ring" id="ring"><i id="ringTxt">0%</i></div>
-    <div class="stages" id="stages"></div>
-  </div>
-
-  <!-- report -->
+  <div class="panel" id="loader"><div class="ring" id="ring"><i id="ringTxt">0%</i></div><div class="stages" id="stages"></div></div>
   <div id="report"></div>
-
-  <footer>NicheScope Pro · أداة ذكاء تنافسي · siradj85 · البيانات من YouTube Data API v3</footer>
+  <footer data-i18n="footer"></footer>
 </div>
 
 <script>
@@ -135,28 +117,78 @@ const $=s=>document.querySelector(s);
 const API_KEY="AIzaSyASyKvq39AwGH6Nsa7wEpjRAW8z8JIJTDc";
 const YT="https://www.googleapis.com/youtube/v3/";
 
-// ---- RPM tiers (USD) + monetization pillars per category ----
-const CATS={
-  "اقتصاد / استثمار / مال": {rpm:[15,40], aff:5, spo:5, prod:5, faceless:5},
-  "عقارات / تأمين / قانون": {rpm:[20,50], aff:4, spo:4, prod:4, faceless:4},
-  "تسويق رقمي / أعمال": {rpm:[12,30], aff:5, spo:5, prod:5, faceless:5},
-  "تقنية / برمجة / ذكاء اصطناعي": {rpm:[10,25], aff:5, spo:4, prod:5, faceless:5},
-  "تطوير ذات / تحفيز": {rpm:[8,18], aff:4, spo:4, prod:5, faceless:5},
-  "تعليم / شروحات / how-to": {rpm:[8,20], aff:4, spo:4, prod:5, faceless:5},
-  "صحة / لياقة": {rpm:[6,15], aff:5, spo:4, prod:4, faceless:4},
-  "أخبار / سياسة": {rpm:[4,10], aff:2, spo:3, prod:2, faceless:4},
-  "سفر": {rpm:[4,10], aff:4, spo:4, prod:3, faceless:2},
-  "طبخ / طعام": {rpm:[3,8], aff:3, spo:4, prod:3, faceless:3},
-  "جمال / موضة": {rpm:[5,12], aff:5, spo:5, prod:4, faceless:2},
-  "ترفيه / فلوغ": {rpm:[2,6], aff:2, spo:3, prod:2, faceless:2},
-  "ألعاب": {rpm:[2,5], aff:3, spo:4, prod:2, faceless:3},
-  "أطفال": {rpm:[1,4], aff:1, spo:2, prod:2, faceless:4},
-  "موسيقى": {rpm:[1,3], aff:1, spo:2, prod:2, faceless:3},
-  "تاريخ / ثقافة / دين": {rpm:[5,12], aff:3, spo:3, prod:4, faceless:5},
+const I18N={
+ en:{subtitle:"Smart niche analysis — know if a niche is worth it before you start.",
+  guideTitle:"How it works",
+  guideHtml:"Enter your niche and 3–5 competitor channels; we analyze live YouTube data to tell you: is it a <b>Golden Opportunity</b>, <b>Competitive</b>, or <b>Saturated</b>? Based on the <b>viral coefficient</b> (views÷subs), <b>recent growth</b> (not surface age), <b>USD earnings</b> by category, <b>saturation</b>, <b>engagement</b> and <b>faceless fit</b>.",
+  legGreen:"🟢 Golden Opportunity",legOrange:"🟠 Competitive",legRed:"🔴 Saturated",
+  nicheLabel:"Niche name",nichePh:"e.g., Islamic history / self-improvement / gaming",
+  catLabel:"Niche category (for earnings estimate)",compsLabel:"Competitor channels (3–5) — @handle, URL, or UC...",
+  add:"+ Add another channel",analyze:"🛰️ Start Deep Analysis",
+  stages:["📡 Harvesting YouTube metadata & hidden SEO tags","⚡ Pivot detection & true niche-age check","🧮 Computing viral coefficient & engagement depth","⚖️ Risk scan: monetization safety & USD RPM tiering","🤖 Finalizing report & verdict"],
+  vGreen:["🟢 Golden Opportunity","Rising niche with good earnings — enter now"],
+  vOrange:["🟠 Competitive","Opportunity exists but needs differentiation & effort"],
+  vRed:["🔴 Saturated","Strong/old competition — find a sharper angle or another niche"],
+  coreT:"Core metrics",mViral:"Viral coefficient (avg)",mViralD:"Views ÷ subs. Higher = algorithm pushes to the public = newcomer opportunity.",
+  mMom:"Recent momentum",mMomD:"Avg videos in last 90 days. High = a live niche.",
+  mRPM:"Estimated RPM (USD)",mRPMD:"Estimated by category. Expected ad income/video ≈",
+  mEng:"Engagement rate",mEngD:"(likes+comments)÷views — audience quality.",
+  oppT:"Opportunity breakdown",bViral:"Viral coefficient",bFresh:"Momentum / freshness",bMoney:"Earning power (RPM + sources)",bSat:"Low saturation",bEng:"Engagement",
+  monT:"Monetization in this niche",moAds:"Ads (RPM)",moAff:"Affiliate",moSpo:"Sponsorships",moProd:"Products/Courses",
+  moFace:"Faceless fit",moFaceD:"Educational faceless = higher CPM & sponsorships.",moGeo:"High-RPM audience 🌍",moGeoD:"Channels with US/EU audience (5–10× higher RPM).",
+  compT:"Competitors (🚀 = rose recently despite an old channel = proven winning niche)",
+  thCh:"Channel",thSubs:"Subs",thViral:"Viral",thAvg:"Avg views",thEng:"Engage",thAge:"Age",thRec:"Vids/90d",
+  kwT:"Most repeated keywords among competitors",
+  errNiche:"Enter the niche name.",errComp:"Add at least one competitor channel.",errNoCh:"Couldn't recognize any channel. Use @handle, channel URL, or UC...",
+  footer:"NicheScope Pro · competitive intelligence · siradj85 · data from YouTube Data API v3",
+  yrs:"yrs",toLang:"ع"},
+ ar:{subtitle:"أداة تحليل النتش الذكية — اعرف جدوى أي نتش قبل البدء فيه.",
+  guideTitle:"كيف تعمل الأداة؟",
+  guideHtml:"أدخل اسم نتشك و3–5 قنوات منافسة، ونحلّل بيانات يوتيوب الحيّة لنخبرك: هل هو <b>فرصة ذهبية</b> أم <b>منافِس</b> أم <b>مُشبَع</b>؟ بناءً على <b>معامل الانتشار</b> (مشاهدات÷مشتركين)، و<b>الصعود الحديث</b> (لا العمر الظاهري)، و<b>الربح بالدولار</b> حسب التصنيف، و<b>التشبّع</b>، و<b>التفاعل</b>، و<b>ملاءمة المحتوى بلا وجه</b>.",
+  legGreen:"🟢 فرصة ذهبية",legOrange:"🟠 منافِس",legRed:"🔴 مُشبَع",
+  nicheLabel:"اسم النتش",nichePh:"مثال: تاريخ إسلامي / تطوير ذات / ألعاب",
+  catLabel:"تصنيف النتش (لتقدير الأرباح)",compsLabel:"قنوات منافسة (3–5) — @handle أو الرابط أو UC...",
+  add:"+ أضف قناة أخرى",analyze:"🛰️ ابدأ التحليل العميق",
+  stages:["📡 سحب بيانات يوتيوب ووسوم SEO المخفية","⚡ كشف تغيير المسار والعمر الحقيقي","🧮 حساب معامل الانتشار وعمق التفاعل","⚖️ فحص المخاطر وتدرّج RPM بالدولار","🤖 إنهاء التقرير والحكم النهائي"],
+  vGreen:["🟢 فرصة ذهبية","نتش صاعد وربح جيد — ادخله الآن"],
+  vOrange:["🟠 منافِس","فرصة موجودة لكن تحتاج تميّزاً ومجهوداً"],
+  vRed:["🔴 مُشبَع","منافسة قوية/قديمة — ابحث عن زاوية أدق أو نتش آخر"],
+  coreT:"المؤشّرات الأساسية",mViral:"معامل الانتشار (متوسط)",mViralD:"مشاهدات ÷ مشتركين. الأعلى = الخوارزمية تدفع للعامة = فرصة للمبتدئ.",
+  mMom:"الزخم الحديث",mMomD:"متوسط فيديوهات آخر 90 يوماً. مرتفع = نتش حيّ.",
+  mRPM:"RPM تقديري (بالدولار)",mRPMD:"تقديري حسب التصنيف. دخل إعلاني متوقّع/الفيديو ≈",
+  mEng:"معدّل التفاعل",mEngD:"(إعجابات+تعليقات)÷مشاهدات — جودة الجمهور.",
+  oppT:"تفصيل نقاط الفرصة",bViral:"معامل الانتشار",bFresh:"الزخم/الحداثة",bMoney:"قوة الربح (RPM + مصادر)",bSat:"انخفاض التشبّع",bEng:"التفاعل",
+  monT:"مصادر الربح في هذا النتش",moAds:"إعلانات (RPM)",moAff:"أفلييت",moSpo:"رعايات",moProd:"منتجات/كورسات",
+  moFace:"ملاءمة بلا وجه",moFaceD:"التعليمي بلا وجه = CPM ورعايات أعلى.",moGeo:"جمهور مرتفع RPM 🌍",moGeoD:"قنوات جمهورها أمريكا/أوروبا (RPM أعلى 5–10×).",
+  compT:"المنافسون (🚀 = صعد حديثاً رغم قِدَم القناة = دليل نتش رابح)",
+  thCh:"القناة",thSubs:"مشتركون",thViral:"انتشار",thAvg:"متوسط مشاهدات",thEng:"تفاعل",thAge:"العمر",thRec:"فيديو/90يوم",
+  kwT:"الكلمات المفتاحية الأكثر تكراراً عند المنافسين",
+  errNiche:"اكتب اسم النتش.",errComp:"أضف قناة منافسة واحدة على الأقل.",errNoCh:"لم أتعرّف على أي قناة. استخدم @handle أو رابط القناة أو UC...",
+  footer:"NicheScope Pro · أداة ذكاء تنافسي · siradj85 · البيانات من YouTube Data API v3",
+  yrs:"سنة",toLang:"EN"}
 };
-const HIGH_RPM_GEO={US:1,GB:1,CA:1,AU:1,DE:1,NL:1,CH:1,SE:1,NO:1,DK:1,AE:1};
-const catSel=$("#cat"); Object.keys(CATS).forEach(k=>catSel.add(new Option(k,k)));
+let LANG=localStorage.getItem("ns_lang")||"en";
+const t=k=>(I18N[LANG][k]??I18N.en[k]??k);
 
+const CATS=[
+ {en:"Finance / Investing / Money",ar:"اقتصاد / استثمار / مال",rpm:[15,40],aff:5,spo:5,prod:5,faceless:5},
+ {en:"Real estate / Insurance / Legal",ar:"عقارات / تأمين / قانون",rpm:[20,50],aff:4,spo:4,prod:4,faceless:4},
+ {en:"Digital marketing / Business",ar:"تسويق رقمي / أعمال",rpm:[12,30],aff:5,spo:5,prod:5,faceless:5},
+ {en:"Tech / Programming / AI",ar:"تقنية / برمجة / ذكاء اصطناعي",rpm:[10,25],aff:5,spo:4,prod:5,faceless:5},
+ {en:"Self-improvement / Motivation",ar:"تطوير ذات / تحفيز",rpm:[8,18],aff:4,spo:4,prod:5,faceless:5},
+ {en:"Education / How-to",ar:"تعليم / شروحات",rpm:[8,20],aff:4,spo:4,prod:5,faceless:5},
+ {en:"Health / Fitness",ar:"صحة / لياقة",rpm:[6,15],aff:5,spo:4,prod:4,faceless:4},
+ {en:"News / Politics",ar:"أخبار / سياسة",rpm:[4,10],aff:2,spo:3,prod:2,faceless:4},
+ {en:"Travel",ar:"سفر",rpm:[4,10],aff:4,spo:4,prod:3,faceless:2},
+ {en:"Food / Cooking",ar:"طبخ / طعام",rpm:[3,8],aff:3,spo:4,prod:3,faceless:3},
+ {en:"Beauty / Fashion",ar:"جمال / موضة",rpm:[5,12],aff:5,spo:5,prod:4,faceless:2},
+ {en:"Entertainment / Vlogs",ar:"ترفيه / فلوغ",rpm:[2,6],aff:2,spo:3,prod:2,faceless:2},
+ {en:"Gaming",ar:"ألعاب",rpm:[2,5],aff:3,spo:4,prod:2,faceless:3},
+ {en:"Kids",ar:"أطفال",rpm:[1,4],aff:1,spo:2,prod:2,faceless:4},
+ {en:"Music",ar:"موسيقى",rpm:[1,3],aff:1,spo:2,prod:2,faceless:3},
+ {en:"History / Culture / Religion",ar:"تاريخ / ثقافة / دين",rpm:[5,12],aff:3,spo:3,prod:4,faceless:5},
+];
+const HIGH_GEO={US:1,GB:1,CA:1,AU:1,DE:1,NL:1,CH:1,SE:1,NO:1,DK:1,AE:1};
 const num=n=>Number(n||0).toLocaleString("en-US");
 const showErr=m=>$("#errBox").innerHTML='<div class="err">⚠ '+m+'</div>';
 const clearErr=()=>$("#errBox").innerHTML="";
@@ -164,205 +196,157 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const cacheGet=k=>{try{const o=JSON.parse(localStorage.getItem("ns_"+k));return o&&Date.now()-o.t<864e5?o.d:null}catch{return null}};
 const cacheSet=(k,d)=>localStorage.setItem("ns_"+k,JSON.stringify({t:Date.now(),d}));
 
+// ---- i18n apply + language ----
+function applyLang(){
+  document.documentElement.lang=LANG;
+  document.documentElement.dir=(LANG==="ar"?"rtl":"ltr");
+  document.querySelectorAll("[data-i18n]").forEach(e=>e.textContent=t(e.dataset.i18n));
+  document.querySelectorAll("[data-i18n-html]").forEach(e=>e.innerHTML=t(e.dataset.i18nHtml));
+  document.querySelectorAll("[data-i18n-ph]").forEach(e=>e.placeholder=t(e.dataset.i18nPh));
+  $("#addBtn").textContent=t("add"); $("#go").textContent=t("analyze");
+  $("#langBtn").textContent=t("toLang");
+  const cat=$("#cat"), sel=cat.value;
+  cat.innerHTML=""; CATS.forEach((c,i)=>cat.add(new Option(LANG==="ar"?c.ar:c.en,i)));
+  cat.value=sel||0;
+  if(DATA) renderReport();
+}
+function toggleLang(){ LANG=LANG==="en"?"ar":"en"; localStorage.setItem("ns_lang",LANG); applyLang(); }
+
+// ---- channel rows ----
+function addRow(val=""){
+  const d=document.createElement("div"); d.className="comprow";
+  d.innerHTML=`<input placeholder="@channel  /  https://youtube.com/@..  /  UC..." value="${val.replace(/"/g,'&quot;')}"><button class="rm" onclick="this.parentNode.remove()">✕</button>`;
+  $("#compsList").appendChild(d);
+}
+function readComps(){ return [...document.querySelectorAll("#compsList input")].map(i=>i.value.trim()).filter(Boolean).slice(0,5); }
+
+// ---- YouTube API ----
 async function yt(ep,params){
   params.key=API_KEY;
   const r=await fetch(YT+ep+"?"+new URLSearchParams(params));
   const j=await r.json();
   if(!r.ok){
     const reason=j?.error?.errors?.[0]?.reason||"";
-    if(reason==="quotaExceeded") throw new Error("تجاوزت حصة API اليوم (10,000). جرّب غداً.");
-    if(reason==="keyInvalid") throw new Error("مفتاح API غير صالح أو الخدمة غير مفعّلة.");
-    throw new Error(j?.error?.message||("خطأ HTTP "+r.status));
+    if(reason==="quotaExceeded") throw new Error(LANG==="ar"?"تجاوزت حصة API اليوم (10,000).":"Daily API quota exceeded (10,000).");
+    if(reason==="keyInvalid") throw new Error(LANG==="ar"?"مفتاح API غير صالح.":"Invalid API key.");
+    throw new Error(j?.error?.message||("HTTP "+r.status));
   }
   return j;
 }
-// resolve a competitor input to a channelId (prefers cheap forHandle / UC)
 async function resolveId(raw){
-  raw=raw.trim(); if(!raw) return null;
-  let m;
+  raw=raw.trim(); if(!raw) return null; let m;
   if(m=raw.match(/channel\/(UC[\w-]{20,})/)) return m[1];
   if(/^UC[\w-]{20,}$/.test(raw)) return raw;
   if(m=raw.match(/@([\w.\-]+)/)){ const j=await yt("channels",{part:"id",forHandle:m[1]}); if(j.items?.[0])return j.items[0].id; }
   if(m=raw.match(/\/(?:c|user)\/([\w.\-]+)/)){ const j=await yt("search",{part:"snippet",type:"channel",q:m[1],maxResults:1}); if(j.items?.[0])return j.items[0].snippet.channelId; }
-  // fallback: treat as handle then search
   let j=await yt("channels",{part:"id",forHandle:raw.replace(/^@/,"")}); if(j.items?.[0])return j.items[0].id;
   j=await yt("search",{part:"snippet",type:"channel",q:raw,maxResults:1}); if(j.items?.[0])return j.items[0].snippet.channelId;
   return null;
 }
-
-const STAGES=[
-  "📡 سحب بيانات يوتيوب ووسوم SEO المخفية",
-  "⚡ كشف تغيير المسار والتحقق من العمر الحقيقي",
-  "🧮 حساب معامل الانتشار وعمق التفاعل",
-  "⚖️ فحص المخاطر: أمان الربح وتدرّج RPM بالدولار",
-  "🤖 إنهاء التقرير ومعايرة الحكم النهائي",
-];
 function renderStages(active,done){
-  $("#stages").innerHTML=STAGES.map((s,i)=>
-    `<div class="stg ${i<done?'done':''} ${i===active?'act':''}"><b>${i<done?'✅':(i===active?'⏳':'•')} ${s}</b></div>`).join("");
+  $("#stages").innerHTML=t("stages").map((s,i)=>`<div class="stg ${i<done?'done':''} ${i===active?'act':''}">${i<done?'✅':(i===active?'⏳':'•')} ${s}</div>`).join("");
 }
-function setRing(p){ $("#ring").style.setProperty("--pct",p+"%"); $("#ringTxt").textContent=Math.round(p)+"%"; }
+const setRing=p=>{ $("#ring").style.setProperty("--pct",p+"%"); $("#ringTxt").textContent=Math.round(p)+"%"; };
 
 let DATA=null;
-$("#go").onclick=analyze;
-
 async function analyze(){
   clearErr(); $("#report").style.display="none";
-  const niche=$("#niche").value.trim(), cat=catSel.value;
-  const comps=$("#comps").value.split("\n").map(x=>x.trim()).filter(Boolean).slice(0,5);
-  if(!niche) return showErr("اكتب اسم النتش.");
-  if(comps.length<1) return showErr("أضف قناة منافسة واحدة على الأقل (3–5 مفضّل).");
+  const niche=$("#niche").value.trim(), ci=+$("#cat").value||0, comps=readComps();
+  if(!niche) return showErr(t("errNiche"));
+  if(!comps.length) return showErr(t("errComp"));
   $("#go").disabled=true; $("#loader").style.display="block"; renderStages(0,0); setRing(0);
-  const t0=Date.now(); const STAGE_MS=4000; // ~20s total, real work paced
-  const stageGate=async(i)=>{ const target=t0+(i)*STAGE_MS; const wait=target-Date.now(); if(wait>0)await sleep(wait); };
-  const animate=()=>{ const p=Math.min(99,(Date.now()-t0)/(STAGE_MS*5)*100); setRing(p); if($("#loader").style.display!=="none"&&p<99)requestAnimationFrame(animate); };
-  animate();
+  const t0=Date.now(), MS=4000;
+  const gate=async i=>{const w=t0+i*MS-Date.now(); if(w>0)await sleep(w);};
+  (function anim(){const p=Math.min(99,(Date.now()-t0)/(MS*5)*100);setRing(p);if($("#loader").style.display!=="none"&&p<99)requestAnimationFrame(anim);})();
   try{
-    // STAGE 1: resolve + channel stats
     renderStages(0,0);
-    const ids=[];
-    for(const c of comps){ const id=await resolveId(c); if(id)ids.push(id); }
-    if(!ids.length) throw new Error("لم أتعرّف على أي قناة. استخدم @handle أو رابط القناة أو UC...");
-    const uniq=[...new Set(ids)];
-    const ch=await yt("channels",{part:"snippet,statistics,contentDetails",id:uniq.join(","),maxResults:50});
-    await stageGate(1);
-
-    // STAGE 2: recent uploads per channel (recency, frequency, pivot signal)
+    const ids=[]; for(const c of comps){const id=await resolveId(c); if(id)ids.push(id);}
+    if(!ids.length) throw new Error(t("errNoCh"));
+    const ch=await yt("channels",{part:"snippet,statistics,contentDetails",id:[...new Set(ids)].join(","),maxResults:50});
+    await gate(1);
     renderStages(1,1);
     const channels=[];
     for(const c of (ch.items||[])){
-      const cid=c.id, cached=cacheGet(cid);
-      const up=c.contentDetails.relatedPlaylists.uploads;
-      let vids=cached?.vids;
-      if(!vids){
-        const pl=await yt("playlistItems",{part:"snippet",playlistId:up,maxResults:50});
-        vids=(pl.items||[]).map(it=>({id:it.snippet.resourceId.videoId,date:it.snippet.publishedAt,title:it.snippet.title}));
-      }
-      channels.push({
-        id:cid,title:c.snippet.title,created:c.snippet.publishedAt,country:c.snippet.country||"",
-        subs:+(c.statistics.subscriberCount||0),views:+(c.statistics.viewCount||0),vcount:+(c.statistics.videoCount||0),
-        vids
-      });
+      const cid=c.id, cc=cacheGet(cid); let vids=cc?.vids;
+      if(!vids){ const pl=await yt("playlistItems",{part:"snippet",playlistId:c.contentDetails.relatedPlaylists.uploads,maxResults:50});
+        vids=(pl.items||[]).map(it=>({id:it.snippet.resourceId.videoId,date:it.snippet.publishedAt,title:it.snippet.title})); }
+      channels.push({id:cid,title:c.snippet.title,created:c.snippet.publishedAt,country:c.snippet.country||"",
+        subs:+(c.statistics.subscriberCount||0),views:+(c.statistics.viewCount||0),vcount:+(c.statistics.videoCount||0),vids});
     }
-    await stageGate(2);
-
-    // STAGE 3: video stats -> engagement + recent performance
+    await gate(2);
     renderStages(2,2);
     for(const c of channels){
-      const cached=cacheGet(c.id);
-      if(cached?.stats){ Object.assign(c,cached.stats); }
+      const cc=cacheGet(c.id);
+      if(cc?.stats) Object.assign(c,cc.stats);
       else{
-        const ids2=c.vids.slice(0,40).map(v=>v.id).filter(Boolean);
-        let totV=0,totE=0,n=0,recent=0,now=Date.now();
-        for(let i=0;i<ids2.length;i+=50){
-          const v=await yt("videos",{part:"statistics,snippet",id:ids2.slice(i,i+50).join(",")});
-          (v.items||[]).forEach(it=>{
-            const vv=+(it.statistics.viewCount||0),lk=+(it.statistics.likeCount||0),cm=+(it.statistics.commentCount||0);
-            totV+=vv; totE+=vv?(lk+cm)/vv:0; n++;
-            if(now-new Date(it.snippet.publishedAt)<90*864e5)recent++;
-          });
-        }
-        c.avgViews=n?Math.round(totV/n):0; c.eng=n?(totE/n*100):0; c.recent90=recent;
+        const ids2=c.vids.slice(0,40).map(v=>v.id).filter(Boolean); let totV=0,totE=0,n=0,rec=0,now=Date.now();
+        for(let i=0;i<ids2.length;i+=50){ const v=await yt("videos",{part:"statistics,snippet",id:ids2.slice(i,i+50).join(",")});
+          (v.items||[]).forEach(it=>{const vv=+(it.statistics.viewCount||0),lk=+(it.statistics.likeCount||0),cm=+(it.statistics.commentCount||0);
+            totV+=vv; totE+=vv?(lk+cm)/vv:0; n++; if(now-new Date(it.snippet.publishedAt)<90*864e5)rec++;}); }
+        c.avgViews=n?Math.round(totV/n):0; c.eng=n?totE/n*100:0; c.recent90=rec;
         cacheSet(c.id,{vids:c.vids,stats:{avgViews:c.avgViews,eng:c.eng,recent90:c.recent90}});
       }
-      c.viral=c.subs>0?c.views/c.subs:(c.views>0?50:0);
-      c.oldestRecent=c.vids.length?c.vids[c.vids.length-1].date:c.created;
-      c.ageYears=((Date.now()-new Date(c.created))/31536e6);
+      c.viral=c.subs>0?c.views/c.subs:(c.views>0?50:0); c.ageYears=(Date.now()-new Date(c.created))/31536e6;
     }
-    await stageGate(3);
-
-    // STAGE 4: scoring (monetization, saturation, geo)
-    renderStages(3,3);
-    const meta=CATS[cat], rpmMid=(meta.rpm[0]+meta.rpm[1])/2;
-    const avgViral=channels.reduce((s,c)=>s+c.viral,0)/channels.length;
-    const avgSubs=channels.reduce((s,c)=>s+c.subs,0)/channels.length;
-    const avgRecent=channels.reduce((s,c)=>s+c.recent90,0)/channels.length;
-    const avgEng=channels.reduce((s,c)=>s+c.eng,0)/channels.length;
-    const geoHigh=channels.filter(c=>HIGH_RPM_GEO[c.country]).length;
-    // sub-scores 0-100
-    const sViral=Math.min(100,avgViral*8);                 // viral coefficient
-    const sFresh=Math.min(100,avgRecent*12);               // recent activity/momentum
-    const sMoney=Math.min(100,(rpmMid/50)*100*0.6 + (meta.aff+meta.spo+meta.prod)/15*40);
-    const sSat=Math.max(0,100-Math.log10(Math.max(10,avgSubs))*16); // smaller channels = less saturated
-    const sEng=Math.min(100,avgEng*18);
-    const score=Math.round(sViral*0.30+sFresh*0.22+sMoney*0.24+sSat*0.16+sEng*0.08);
-    await stageGate(4);
-
-    // STAGE 5: keywords + verdict
-    renderStages(4,4);
-    const stop=new Set("في من على عن الى إلى مع هذا هذه ذلك the a an of to in on for and or your you how why what is are با ما لا و في يا".split(/\s+/));
-    const freq={};
-    channels.forEach(c=>c.vids.forEach(v=>v.title.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu," ").split(/\s+/).forEach(w=>{
-      if(w.length>2&&!stop.has(w))freq[w]=(freq[w]||0)+1;})));
-    const keywords=Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,12);
-    await stageGate(5);
-
-    DATA={niche,cat,meta,score,channels,avgViral,avgRecent,avgEng,geoHigh,rpmMid,keywords,
-      sub:{sViral,sFresh,sMoney,sSat,sEng}};
-    setRing(100); await sleep(300);
-    $("#loader").style.display="none";
-    renderReport();
+    await gate(3); renderStages(3,3);
+    const meta=CATS[ci], rpmMid=(meta.rpm[0]+meta.rpm[1])/2;
+    const avg=f=>channels.reduce((s,c)=>s+f(c),0)/channels.length;
+    const avgViral=avg(c=>c.viral),avgSubs=avg(c=>c.subs),avgRecent=avg(c=>c.recent90),avgEng=avg(c=>c.eng),avgAvgViews=avg(c=>c.avgViews);
+    const geoHigh=channels.filter(c=>HIGH_GEO[c.country]).length;
+    const sViral=Math.min(100,avgViral*8),sFresh=Math.min(100,avgRecent*12),
+      sMoney=Math.min(100,rpmMid/50*60+(meta.aff+meta.spo+meta.prod)/15*40),
+      sSat=Math.max(0,100-Math.log10(Math.max(10,avgSubs))*16),sEng=Math.min(100,avgEng*18);
+    const score=Math.round(sViral*.30+sFresh*.22+sMoney*.24+sSat*.16+sEng*.08);
+    await gate(4); renderStages(4,4);
+    const stop=new Set("the a an of to in on for and or your you how why what is are با ما لا و في من على عن الى إلى مع هذا هذه".split(/\s+/));
+    const fr={}; channels.forEach(c=>c.vids.forEach(v=>v.title.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu," ").split(/\s+/).forEach(w=>{if(w.length>2&&!stop.has(w))fr[w]=(fr[w]||0)+1;})));
+    const keywords=Object.entries(fr).sort((a,b)=>b[1]-a[1]).slice(0,12);
+    await gate(5);
+    DATA={niche,ci,meta,score,channels,avgViral,avgRecent,avgEng,avgAvgViews,geoHigh,keywords,sub:{sViral,sFresh,sMoney,sSat,sEng}};
+    setRing(100); await sleep(250); $("#loader").style.display="none"; renderReport();
   }catch(e){ $("#loader").style.display="none"; showErr(e.message); }
   finally{ $("#go").disabled=false; }
 }
-
-function bar(label,val,color){
-  return `<div><div style="display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted)"><span>${label}</span><span>${Math.round(val)}</span></div>
-   <div class="bar"><i style="width:${Math.min(100,val)}%;background:${color}"></i></div></div>`;
-}
+const bar=(label,val,color)=>`<div><div style="display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted)"><span>${label}</span><span>${Math.round(val)}</span></div><div class="bar"><i style="width:${Math.min(100,val)}%;background:${color}"></i></div></div>`;
 function renderReport(){
-  const d=DATA, v= d.score>=66?["v-green","🟢 فرصة ذهبية","النتش صاعد والربح جيد — ادخله الآن"]:
-                  d.score>=42?["v-orange","🟠 منافِس","فرصة موجودة لكن تحتاج تميّزاً ومجهوداً"]:
-                              ["v-red","🔴 مُشبَع","المنافسة قوية/قديمة — فكّر في زاوية أدق أو نتش آخر"];
-  const monPillar=(n)=>"●".repeat(n)+"○".repeat(5-n);
-  const rows=d.channels.map(c=>{
-    const rising=c.ageYears>1.5 && c.recent90>=3 && c.viral>3;
-    return `<tr>
-      <td>${c.title.replace(/</g,"&lt;")} ${HIGH_RPM_GEO[c.country]?'🌍':''}</td>
-      <td>${num(c.subs)}</td>
+  const d=DATA; if(!d) return; const meta=CATS[d.ci]; // category may relabel on lang switch
+  const v=d.score>=66?["v-green",...t("vGreen")]:d.score>=42?["v-orange",...t("vOrange")]:["v-red",...t("vRed")];
+  const pil=n=>"●".repeat(n)+"○".repeat(5-n);
+  const estLo=Math.round(d.avgAvgViews*meta.rpm[0]/1000),estHi=Math.round(d.avgAvgViews*meta.rpm[1]/1000);
+  const rows=d.channels.map(c=>{const rising=c.ageYears>1.5&&c.recent90>=3&&c.viral>3;
+    return `<tr><td>${c.title.replace(/</g,"&lt;")} ${HIGH_GEO[c.country]?'🌍':''}</td><td>${num(c.subs)}</td>
       <td class="${c.viral>=5?'pos':c.viral<2?'neg':''}">${c.viral>=50?'∞':c.viral.toFixed(1)}×</td>
-      <td>${num(c.avgViews)}</td>
-      <td>${c.eng.toFixed(1)}%</td>
-      <td>${c.ageYears.toFixed(1)} سنة</td>
+      <td>${num(c.avgViews)}</td><td>${c.eng.toFixed(1)}%</td><td>${c.ageYears.toFixed(1)} ${t("yrs")}</td>
       <td>${c.recent90} ${rising?'🚀':''}</td></tr>`;}).join("");
-  const estLow=Math.round(d.channels.reduce((s,c)=>s+c.avgViews,0)/d.channels.length*d.meta.rpm[0]/1000);
-  const estHigh=Math.round(d.channels.reduce((s,c)=>s+c.avgViews,0)/d.channels.length*d.meta.rpm[1]/1000);
   $("#report").innerHTML=`
     <div class="verdict ${v[0]}"><div class="score">${d.score}/100</div><h2>${v[1]}</h2><p>${v[2]}</p></div>
-    <div class="secttl">📊 المؤشّرات الأساسية</div>
+    <div class="secttl">📊 ${t("coreT")}</div>
     <div class="cards">
-      <div class="metric"><div class="k">معامل الانتشار (متوسط)</div><div class="v">${d.avgViral.toFixed(1)}×</div><small>مشاهدات ÷ مشتركين. الأعلى = الخوارزمية تدفع للعامة = فرصة للمبتدئ.</small></div>
-      <div class="metric"><div class="k">الزخم الحديث</div><div class="v">${d.avgRecent.toFixed(1)}</div><small>متوسط فيديوهات آخر 90 يوماً عند المنافسين. مرتفع = نتش حيّ.</small></div>
-      <div class="metric"><div class="k">RPM تقديري (بالدولار)</div><div class="v">$${d.meta.rpm[0]}–$${d.meta.rpm[1]}</div><small>تقديري حسب التصنيف. دخل إعلاني متوقّع/الفيديو ≈ $${num(estLow)}–$${num(estHigh)}.</small></div>
-      <div class="metric"><div class="k">معدّل التفاعل</div><div class="v">${d.avgEng.toFixed(1)}%</div><small>(إعجابات+تعليقات)÷مشاهدات — جودة الجمهور.</small></div>
+      <div class="metric"><div class="k">${t("mViral")}</div><div class="v">${d.avgViral.toFixed(1)}×</div><small>${t("mViralD")}</small></div>
+      <div class="metric"><div class="k">${t("mMom")}</div><div class="v">${d.avgRecent.toFixed(1)}</div><small>${t("mMomD")}</small></div>
+      <div class="metric"><div class="k">${t("mRPM")}</div><div class="v">$${meta.rpm[0]}–$${meta.rpm[1]}</div><small>${t("mRPMD")} $${num(estLo)}–$${num(estHi)}</small></div>
+      <div class="metric"><div class="k">${t("mEng")}</div><div class="v">${d.avgEng.toFixed(1)}%</div><small>${t("mEngD")}</small></div>
     </div>
-    <div class="secttl">🎯 تفصيل نقاط الفرصة</div>
-    <div class="panel">
-      ${bar("معامل الانتشار",d.sub.sViral,"var(--neon)")}
-      ${bar("الزخم/الحداثة",d.sub.sFresh,"var(--green)")}
-      ${bar("قوة الربح (RPM + مصادر)",d.sub.sMoney,"var(--gold)")}
-      ${bar("انخفاض التشبّع",d.sub.sSat,"var(--accent)")}
-      ${bar("التفاعل",d.sub.sEng,"var(--orange)")}
-    </div>
-    <div class="secttl">💰 مصادر الربح في هذا النتش</div>
+    <div class="secttl">🎯 ${t("oppT")}</div>
+    <div class="panel">${bar(t("bViral"),d.sub.sViral,"var(--neon)")}${bar(t("bFresh"),d.sub.sFresh,"var(--green)")}${bar(t("bMoney"),d.sub.sMoney,"var(--gold)")}${bar(t("bSat"),d.sub.sSat,"var(--accent)")}${bar(t("bEng"),d.sub.sEng,"var(--orange)")}</div>
+    <div class="secttl">💰 ${t("monT")}</div>
     <div class="cards">
-      <div class="metric"><div class="k">إعلانات (RPM)</div><div class="v" style="font-size:1.1rem;color:var(--gold)">$${d.meta.rpm[0]}–$${d.meta.rpm[1]}</div></div>
-      <div class="metric"><div class="k">أفلييت</div><div class="v" style="font-size:1.2rem">${monPillar(d.meta.aff)}</div></div>
-      <div class="metric"><div class="k">رعايات</div><div class="v" style="font-size:1.2rem">${monPillar(d.meta.spo)}</div></div>
-      <div class="metric"><div class="k">منتجات/كورسات</div><div class="v" style="font-size:1.2rem">${monPillar(d.meta.prod)}</div></div>
-      <div class="metric"><div class="k">ملاءمة "بلا وجه"</div><div class="v" style="font-size:1.2rem">${monPillar(d.meta.faceless)}</div><small>التعليمي بلا وجه = CPM ورعايات أعلى.</small></div>
-      <div class="metric"><div class="k">جمهور مرتفع RPM 🌍</div><div class="v">${d.geoHigh}/${d.channels.length}</div><small>قنوات جمهورها أمريكا/أوروبا (RPM أعلى 5–10×).</small></div>
+      <div class="metric"><div class="k">${t("moAds")}</div><div class="v" style="font-size:1.1rem;color:var(--gold)">$${meta.rpm[0]}–$${meta.rpm[1]}</div></div>
+      <div class="metric"><div class="k">${t("moAff")}</div><div class="v" style="font-size:1.2rem">${pil(meta.aff)}</div></div>
+      <div class="metric"><div class="k">${t("moSpo")}</div><div class="v" style="font-size:1.2rem">${pil(meta.spo)}</div></div>
+      <div class="metric"><div class="k">${t("moProd")}</div><div class="v" style="font-size:1.2rem">${pil(meta.prod)}</div></div>
+      <div class="metric"><div class="k">${t("moFace")}</div><div class="v" style="font-size:1.2rem">${pil(meta.faceless)}</div><small>${t("moFaceD")}</small></div>
+      <div class="metric"><div class="k">${t("moGeo")}</div><div class="v">${d.geoHigh}/${d.channels.length}</div><small>${t("moGeoD")}</small></div>
     </div>
-    <div class="secttl">🏆 المنافسون (🚀 = صعد حديثاً رغم قِدَم القناة = دليل نتش رابح)</div>
-    <div class="panel" style="overflow:auto">
-      <table><tr><th>القناة</th><th>مشتركون</th><th>انتشار</th><th>متوسط مشاهدات</th><th>تفاعل</th><th>العمر</th><th>فيديوهات/90يوم</th></tr>${rows}</table>
-    </div>
-    <div class="secttl">🔑 الكلمات المفتاحية الأكثر تكراراً عند المنافسين</div>
-    <div class="kw">${d.keywords.map(([w,n])=>`<span>${w} <b style="color:var(--neon)">${n}</b></span>`).join("")||"—"}</div>
-  `;
-  $("#report").style.display="block";
-  $("#report").scrollIntoView({behavior:"smooth"});
+    <div class="secttl">🏆 ${t("compT")}</div>
+    <div class="panel" style="overflow:auto"><table><tr><th>${t("thCh")}</th><th>${t("thSubs")}</th><th>${t("thViral")}</th><th>${t("thAvg")}</th><th>${t("thEng")}</th><th>${t("thAge")}</th><th>${t("thRec")}</th></tr>${rows}</table></div>
+    <div class="secttl">🔑 ${t("kwT")}</div>
+    <div class="kw">${d.keywords.map(([w,n])=>`<span>${w} <b style="color:var(--neon)">${n}</b></span>`).join("")||"—"}</div>`;
+  $("#report").style.display="block"; $("#report").scrollIntoView({behavior:"smooth"});
 }
+// init: 3 default rows + language
+addRow();addRow();addRow();
+applyLang();
 </script>
 </body>
 </html>
