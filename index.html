@@ -19,6 +19,9 @@
   .top h1{margin:0;font-size:1.55rem} .top p{margin:0;color:var(--muted);font-size:.85rem}
   .langbtn{margin-inline-start:auto;background:var(--chip);border:1px solid var(--line);color:var(--txt);
     border-radius:10px;padding:9px 14px;cursor:pointer;font-weight:800;font-size:.9rem}
+  .seg{display:inline-flex;background:#0a1222;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .seg button{background:transparent;color:var(--muted);padding:10px 16px;cursor:pointer;font-weight:700;font-size:.9rem}
+  .seg button.on{background:var(--accent);color:#fff}
   .panel{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:14px}
   .lbl{font-size:.8rem;color:var(--muted);margin-bottom:6px;display:block}
   input,select{width:100%;background:#0a1222;border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:11px 12px;font-size:.95rem;outline:none;font-family:inherit}
@@ -92,9 +95,16 @@
       <div class="col"><label class="lbl" data-i18n="nicheLabel"></label><input id="niche" data-i18n-ph="nichePh" /></div>
       <div class="col"><label class="lbl" data-i18n="catLabel"></label><select id="cat"></select></div>
     </div>
-    <label class="lbl" style="margin-top:12px" data-i18n="compsLabel"></label>
-    <div id="compsList"></div>
-    <button class="addbtn" id="addBtn" onclick="addRow()"></button>
+    <div class="seg" id="modeSeg" style="margin-top:12px">
+      <button data-m="channels" class="on" onclick="setMode('channels')" data-i18n="modeChannels"></button>
+      <button data-m="keyword" onclick="setMode('keyword')" data-i18n="modeKeyword"></button>
+    </div>
+    <div id="chBlock">
+      <label class="lbl" style="margin-top:12px" data-i18n="compsLabel"></label>
+      <div id="compsList"></div>
+      <button class="addbtn" id="addBtn" onclick="addRow()"></button>
+    </div>
+    <p class="info" id="kwHint" style="display:none;margin-top:10px" data-i18n="kwHint"></p>
     <button class="go" id="go" onclick="analyze()"></button>
   </div>
 
@@ -117,6 +127,7 @@ const I18N={
   nicheLabel:"Niche name",nichePh:"e.g., Islamic history / self-improvement / gaming",
   catLabel:"Niche category (for earnings estimate)",compsLabel:"Competitor channels (3–5) — @handle, URL, or UC...",
   add:"+ Add another channel",analyze:"🛰️ Start Deep Analysis",print:"🖨️ Save / Print report",
+  modeChannels:"By competitor channels",modeKeyword:"By keyword 🔑",kwHint:"We'll search YouTube for this keyword, find the videos & channels, and analyze the niche automatically.",errNoRes:"No videos found for this keyword.",
   stages:["📡 Harvesting YouTube metadata & hidden SEO tags","⚡ Pivot detection & true niche-age check","🧮 Computing viral coefficient & engagement depth","⚖️ Risk scan: monetization safety & USD RPM tiering","🤖 Finalizing report & verdict"],
   vGreen:["🟢 Golden Opportunity","Rising niche with good earnings — enter now"],
   vOrange:["🟠 Competitive","Opportunity exists but needs differentiation & effort"],
@@ -142,6 +153,7 @@ const I18N={
   nicheLabel:"اسم النتش",nichePh:"مثال: تاريخ إسلامي / تطوير ذات / ألعاب",
   catLabel:"تصنيف النتش (لتقدير الأرباح)",compsLabel:"قنوات منافسة (3–5) — @handle أو الرابط أو UC...",
   add:"+ أضف قناة أخرى",analyze:"🛰️ ابدأ التحليل العميق",print:"🖨️ حفظ / طباعة التقرير",
+  modeChannels:"عبر القنوات المنافسة",modeKeyword:"عبر الكلمات المفتاحية 🔑",kwHint:"سنبحث في يوتيوب عن هذه الكلمة، ونجد الفيديوهات والقنوات، ونحلّل النتش تلقائياً.",errNoRes:"لا توجد فيديوهات لهذه الكلمة.",
   stages:["📡 سحب بيانات يوتيوب ووسوم SEO المخفية","⚡ كشف تغيير المسار والعمر الحقيقي","🧮 حساب معامل الانتشار وعمق التفاعل","⚖️ فحص المخاطر وتدرّج RPM بالدولار","🤖 إنهاء التقرير والحكم النهائي"],
   vGreen:["🟢 فرصة ذهبية","نتش صاعد وربح جيد — ادخله الآن"],
   vOrange:["🟠 منافِس","فرصة موجودة لكن تحتاج تميّزاً ومجهوداً"],
@@ -163,6 +175,11 @@ const I18N={
 };
 let LANG=localStorage.getItem("ns_lang")||"en";
 const t=k=>(I18N[LANG][k]??I18N.en[k]??k);
+let MODE="channels";
+function setMode(m){MODE=m;
+  document.querySelectorAll("#modeSeg button").forEach(b=>b.classList.toggle("on",b.dataset.m===m));
+  $("#chBlock").style.display=(m==="channels"?"block":"none");
+  $("#kwHint").style.display=(m==="keyword"?"block":"none");}
 
 const CATS=[
  {en:"Finance / Investing / Money",ar:"اقتصاد / استثمار / مال",rpm:[15,40],aff:5,spo:5,prod:5,faceless:5},
@@ -225,14 +242,31 @@ let DATA=null;
 async function analyze(){
   clearErr(); $("#report").style.display="none";
   const niche=$("#niche").value.trim(),ci=+$("#cat").value||0,comps=readComps();
-  if(!niche) return showErr(t("errNiche")); if(!comps.length) return showErr(t("errComp"));
+  if(!niche) return showErr(t("errNiche")); if(MODE==="channels"&&!comps.length) return showErr(t("errComp"));
   $("#go").disabled=true; $("#loader").style.display="block"; renderStages(0,0); setRing(0);
   const t0=Date.now(),MS=4000; const gate=async i=>{const w=t0+i*MS-Date.now(); if(w>0)await sleep(w);};
   (function anim(){const p=Math.min(99,(Date.now()-t0)/(MS*5)*100);setRing(p);if($("#loader").style.display!=="none"&&p<99)requestAnimationFrame(anim);})();
   try{
     renderStages(0,0);
-    const ids=[]; for(const c of comps){const id=await resolveId(c); if(id)ids.push(id);}
-    if(!ids.length) throw new Error(t("errNoCh"));
+    let ids=[],kwTop=null;
+    if(MODE==="keyword"){
+      const s=await yt("search",{part:"snippet",type:"video",q:niche,order:"viewCount",maxResults:50});
+      const vid=(s.items||[]).map(it=>it.id.videoId).filter(Boolean);
+      if(!vid.length) throw new Error(t("errNoRes"));
+      const vmeta=[];
+      for(let i=0;i<vid.length;i+=50){ const v=await yt("videos",{part:"statistics,snippet",id:vid.slice(i,i+50).join(",")});
+        (v.items||[]).forEach(it=>vmeta.push({id:it.id,title:it.snippet.title,views:+(it.statistics.viewCount||0),cid:it.snippet.channelId,thumb:(it.snippet.thumbnails.medium||it.snippet.thumbnails.default||{}).url})); }
+      const ucids=[...new Set(vmeta.map(v=>v.cid))],subMap={},titleMap={};
+      for(let i=0;i<ucids.length;i+=50){ const c=await yt("channels",{part:"statistics,snippet",id:ucids.slice(i,i+50).join(",")});
+        (c.items||[]).forEach(x=>{subMap[x.id]=+(x.statistics.subscriberCount||0);titleMap[x.id]=x.snippet.title;}); }
+      kwTop=vmeta.map(v=>({id:v.id,title:v.title,views:v.views,subs:subMap[v.cid]||0,thumb:v.thumb,ch:titleMap[v.cid]||""}))
+            .sort((a,b)=>(b.views/Math.max(1,b.subs))-(a.views/Math.max(1,a.subs))).slice(0,8);
+      const byCh={}; vmeta.forEach(v=>byCh[v.cid]=(byCh[v.cid]||0)+v.views);
+      ids=Object.entries(byCh).sort((a,b)=>b[1]-a[1]).slice(0,6).map(e=>e[0]);
+    } else {
+      for(const c of comps){const id=await resolveId(c); if(id)ids.push(id);}
+    }
+    if(!ids.length) throw new Error(MODE==="keyword"?t("errNoRes"):t("errNoCh"));
     const ch=await yt("channels",{part:"snippet,statistics,contentDetails",id:[...new Set(ids)].join(","),maxResults:50});
     await gate(1); renderStages(1,1);
     const channels=[];
@@ -283,7 +317,7 @@ async function analyze(){
     const stop=new Set("the a an of to in on for and or your you how why what is are با ما لا و في من على عن الى إلى مع هذا هذه".split(/\s+/));
     const fr={}; channels.forEach(c=>c.vids.forEach(v=>v.title.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu," ").split(/\s+/).forEach(w=>{if(w.length>2&&!stop.has(w))fr[w]=(fr[w]||0)+1;})));
     const keywords=Object.entries(fr).sort((a,b)=>b[1]-a[1]).slice(0,12);
-    const topVideos=[...new Map(TOPV.map(v=>[v.id,v])).values()].sort((a,b)=>(b.views/Math.max(1,b.subs))-(a.views/Math.max(1,a.subs))).slice(0,8);
+    const topVideos= kwTop || [...new Map(TOPV.map(v=>[v.id,v])).values()].sort((a,b)=>(b.views/Math.max(1,b.subs))-(a.views/Math.max(1,a.subs))).slice(0,8);
     await gate(5);
     DATA={niche,ci,score,channels,avgViral,avgRecent,avgEng,avgAvgViews,geoHigh,keywords,topVideos,sub:{sViral,sFresh,sMoney,sSat,sEng}};
     setRing(100); await sleep(250); $("#loader").style.display="none"; renderReport();
