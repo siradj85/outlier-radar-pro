@@ -5,11 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>NicheScope Pro — YouTube Niche Intelligence</title>
 <style>
-  :root{
-    --bg:#070b18; --bg2:#0c1428; --card:#111c33; --line:#22304d; --txt:#e9eefc;
-    --muted:#8fa2c4; --accent:#3b82f6; --neon:#22d3ee; --gold:#f5c451;
-    --green:#22c55e; --orange:#f59e0b; --red:#ef4444; --chip:#16233e;
-  }
+  :root{--bg:#070b18;--bg2:#0c1428;--card:#111c33;--line:#22304d;--txt:#e9eefc;--muted:#8fa2c4;
+    --accent:#3b82f6;--neon:#22d3ee;--gold:#f5c451;--green:#22c55e;--orange:#f59e0b;--red:#ef4444;--chip:#16233e;}
   *{box-sizing:border-box} html{scroll-behavior:smooth}
   body{margin:0;font-family:"Segoe UI",Tahoma,system-ui,sans-serif;color:var(--txt);
     background:radial-gradient(1100px 500px at 85% -8%,#13224a 0,transparent 55%),
@@ -22,19 +19,14 @@
   .top h1{margin:0;font-size:1.55rem} .top p{margin:0;color:var(--muted);font-size:.85rem}
   .langbtn{margin-inline-start:auto;background:var(--chip);border:1px solid var(--line);color:var(--txt);
     border-radius:10px;padding:9px 14px;cursor:pointer;font-weight:800;font-size:.9rem}
-  .panel{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);
-    border-radius:16px;padding:16px;margin-top:14px}
+  .panel{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:14px}
   .lbl{font-size:.8rem;color:var(--muted);margin-bottom:6px;display:block}
-  input,select{width:100%;background:#0a1222;border:1px solid var(--line);color:var(--txt);
-    border-radius:10px;padding:11px 12px;font-size:.95rem;outline:none;font-family:inherit}
+  input,select{width:100%;background:#0a1222;border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:11px 12px;font-size:.95rem;outline:none;font-family:inherit}
   input:focus,select:focus{border-color:var(--neon)}
   .row{display:flex;gap:12px;flex-wrap:wrap} .col{flex:1;min-width:200px}
-  .comprow{display:flex;gap:8px;align-items:center;margin-bottom:8px}
-  .comprow input{flex:1}
-  .rm{background:#2a1320;border:1px solid #7f1d1d;color:#fecaca;border-radius:10px;
-    width:42px;height:42px;cursor:pointer;font-size:1rem;flex:none}
-  .addbtn{background:transparent;border:1px dashed var(--line);color:var(--neon);border-radius:10px;
-    padding:9px 14px;cursor:pointer;font-weight:700;font-size:.88rem}
+  .comprow{display:flex;gap:8px;align-items:center;margin-bottom:8px} .comprow input{flex:1}
+  .rm{background:#2a1320;border:1px solid #7f1d1d;color:#fecaca;border-radius:10px;width:42px;height:42px;cursor:pointer;font-size:1rem;flex:none}
+  .addbtn{background:transparent;border:1px dashed var(--line);color:var(--neon);border-radius:10px;padding:9px 14px;cursor:pointer;font-weight:700;font-size:.88rem}
   button{border:none;font-family:inherit}
   .go{width:100%;margin-top:14px;padding:15px;color:#04121f;border-radius:11px;font-weight:800;font-size:1rem;cursor:pointer;
     background:linear-gradient(135deg,var(--neon),var(--accent));box-shadow:0 8px 24px #22d3ee33}
@@ -43,15 +35,11 @@
   .legend{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
   .tag{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:.8rem}
   #loader{display:none;text-align:center;padding:18px}
-  .ring{width:120px;height:120px;border-radius:50%;margin:6px auto 16px;
-    background:conic-gradient(var(--neon) var(--pct,0%),#1b2942 0);display:grid;place-items:center;transition:.25s}
-  .ring i{width:96px;height:96px;border-radius:50%;background:var(--bg2);display:grid;place-items:center;
-    font-style:normal;font-weight:800;font-size:1.5rem;color:var(--neon)}
+  .ring{width:120px;height:120px;border-radius:50%;margin:6px auto 16px;background:conic-gradient(var(--neon) var(--pct,0%),#1b2942 0);display:grid;place-items:center;transition:.25s}
+  .ring i{width:96px;height:96px;border-radius:50%;background:var(--bg2);display:grid;place-items:center;font-style:normal;font-weight:800;font-size:1.5rem;color:var(--neon)}
   .stages{max-width:540px;margin:0 auto;text-align:start}
-  .stg{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;margin:6px 0;
-    border:1px solid var(--line);background:#0c1426;color:var(--muted);transition:.3s;font-size:.92rem}
-  .stg.act{border-color:var(--neon);color:var(--txt);box-shadow:0 0 0 1px var(--neon) inset}
-  .stg.done{color:var(--green);border-color:#14532d}
+  .stg{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;margin:6px 0;border:1px solid var(--line);background:#0c1426;color:var(--muted);transition:.3s;font-size:.92rem}
+  .stg.act{border-color:var(--neon);color:var(--txt);box-shadow:0 0 0 1px var(--neon) inset} .stg.done{color:var(--green);border-color:#14532d}
   #report{display:none}
   .verdict{border-radius:18px;padding:22px;text-align:center;margin-top:16px;border:2px solid}
   .verdict h2{margin:.2em 0;font-size:2rem} .verdict p{margin:.2em 0;font-size:1.05rem}
@@ -63,16 +51,22 @@
   .metric{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
   .metric .k{color:var(--muted);font-size:.82rem} .metric .v{font-size:1.5rem;font-weight:800;margin-top:4px}
   .metric small{color:var(--muted);font-size:.78rem;display:block;margin-top:4px;line-height:1.5}
-  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.85rem}
-  th,td{padding:9px;border-bottom:1px solid var(--line);text-align:start}
-  th{color:var(--muted);font-weight:700} .pos{color:var(--green)} .neg{color:var(--red)}
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.84rem}
+  th,td{padding:8px;border-bottom:1px solid var(--line);text-align:start} th{color:var(--muted);font-weight:700}
+  .pos{color:var(--green)} .neg{color:var(--red)}
+  .vidgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:10px}
+  .vcard{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+  .vcard .th{position:relative;aspect-ratio:16/9;background:#000} .vcard img{width:100%;height:100%;object-fit:cover}
+  .vcard .xb{position:absolute;top:6px;inset-inline-start:6px;background:#000b;border:1px solid #fff2;border-radius:999px;padding:3px 9px;font-weight:800;font-size:.78rem;color:var(--green)}
+  .vcard .tt{padding:9px;font-size:.84rem;font-weight:600;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .vcard .mt{padding:0 9px 9px;color:var(--muted);font-size:.76rem}
   .kw{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
   .kw span{background:var(--chip);border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-size:.85rem}
   .secttl{margin:18px 2px 2px;font-size:1.1rem;display:flex;align-items:center;gap:8px}
   .err{background:#3b1320;border:1px solid #7f1d1d;color:#fecaca;border-radius:12px;padding:14px;margin-top:14px}
-  .bar{height:9px;border-radius:6px;background:#1b2942;overflow:hidden;margin:5px 0}
-  .bar i{display:block;height:100%;border-radius:6px}
+  .bar{height:9px;border-radius:6px;background:#1b2942;overflow:hidden;margin:5px 0} .bar i{display:block;height:100%;border-radius:6px}
   footer{color:var(--muted);text-align:center;font-size:.8rem;padding:26px 0 10px}
+  @media print{ .noprint{display:none!important} body{background:#fff;color:#000} .panel,.metric,.vcard{background:#fff;border-color:#ccc} .secttl,.metric .v,.top h1{color:#000} .metric .k,.metric small,th,.mt{color:#444} }
 </style>
 </head>
 <body>
@@ -80,10 +74,10 @@
   <div class="top">
     <div class="logo">🛰️</div>
     <div><h1>NicheScope <span style="color:var(--gold)">Pro</span></h1><p data-i18n="subtitle"></p></div>
-    <button class="langbtn" id="langBtn" onclick="toggleLang()">ع</button>
+    <button class="langbtn noprint" id="langBtn" onclick="toggleLang()">ع</button>
   </div>
 
-  <div class="panel">
+  <div class="panel noprint">
     <div class="secttl">💡 <span data-i18n="guideTitle"></span></div>
     <p class="info" data-i18n-html="guideHtml"></p>
     <div class="legend">
@@ -93,12 +87,10 @@
     </div>
   </div>
 
-  <div class="panel">
+  <div class="panel noprint">
     <div class="row">
-      <div class="col"><label class="lbl" data-i18n="nicheLabel"></label>
-        <input id="niche" data-i18n-ph="nichePh" /></div>
-      <div class="col"><label class="lbl" data-i18n="catLabel"></label>
-        <select id="cat"></select></div>
+      <div class="col"><label class="lbl" data-i18n="nicheLabel"></label><input id="niche" data-i18n-ph="nichePh" /></div>
+      <div class="col"><label class="lbl" data-i18n="catLabel"></label><select id="cat"></select></div>
     </div>
     <label class="lbl" style="margin-top:12px" data-i18n="compsLabel"></label>
     <div id="compsList"></div>
@@ -107,7 +99,7 @@
   </div>
 
   <div id="errBox"></div>
-  <div class="panel" id="loader"><div class="ring" id="ring"><i id="ringTxt">0%</i></div><div class="stages" id="stages"></div></div>
+  <div class="panel noprint" id="loader"><div class="ring" id="ring"><i id="ringTxt">0%</i></div><div class="stages" id="stages"></div></div>
   <div id="report"></div>
   <footer data-i18n="footer"></footer>
 </div>
@@ -120,11 +112,11 @@ const YT="https://www.googleapis.com/youtube/v3/";
 const I18N={
  en:{subtitle:"Smart niche analysis — know if a niche is worth it before you start.",
   guideTitle:"How it works",
-  guideHtml:"Enter your niche and 3–5 competitor channels; we analyze live YouTube data to tell you: is it a <b>Golden Opportunity</b>, <b>Competitive</b>, or <b>Saturated</b>? Based on the <b>viral coefficient</b> (views÷subs), <b>recent growth</b> (not surface age), <b>USD earnings</b> by category, <b>saturation</b>, <b>engagement</b> and <b>faceless fit</b>.",
+  guideHtml:"Enter your niche and 3–5 competitor channels; we analyze live YouTube data to tell you: is it a <b>Golden Opportunity</b>, <b>Competitive</b>, or <b>Saturated</b>? Based on the <b>viral coefficient</b> (views÷subs), <b>true working age</b> (when the channel actually started posting — pivot-aware), <b>USD earnings</b> by category, <b>saturation</b>, <b>engagement</b> and <b>faceless fit</b>.",
   legGreen:"🟢 Golden Opportunity",legOrange:"🟠 Competitive",legRed:"🔴 Saturated",
   nicheLabel:"Niche name",nichePh:"e.g., Islamic history / self-improvement / gaming",
   catLabel:"Niche category (for earnings estimate)",compsLabel:"Competitor channels (3–5) — @handle, URL, or UC...",
-  add:"+ Add another channel",analyze:"🛰️ Start Deep Analysis",
+  add:"+ Add another channel",analyze:"🛰️ Start Deep Analysis",print:"🖨️ Save / Print report",
   stages:["📡 Harvesting YouTube metadata & hidden SEO tags","⚡ Pivot detection & true niche-age check","🧮 Computing viral coefficient & engagement depth","⚖️ Risk scan: monetization safety & USD RPM tiering","🤖 Finalizing report & verdict"],
   vGreen:["🟢 Golden Opportunity","Rising niche with good earnings — enter now"],
   vOrange:["🟠 Competitive","Opportunity exists but needs differentiation & effort"],
@@ -136,19 +128,20 @@ const I18N={
   oppT:"Opportunity breakdown",bViral:"Viral coefficient",bFresh:"Momentum / freshness",bMoney:"Earning power (RPM + sources)",bSat:"Low saturation",bEng:"Engagement",
   monT:"Monetization in this niche",moAds:"Ads (RPM)",moAff:"Affiliate",moSpo:"Sponsorships",moProd:"Products/Courses",
   moFace:"Faceless fit",moFaceD:"Educational faceless = higher CPM & sponsorships.",moGeo:"High-RPM audience 🌍",moGeoD:"Channels with US/EU audience (5–10× higher RPM).",
-  compT:"Competitors (🚀 = rose recently despite an old channel = proven winning niche)",
-  thCh:"Channel",thSubs:"Subs",thViral:"Viral",thAvg:"Avg views",thEng:"Engage",thAge:"Age",thRec:"Vids/90d",
+  topT:"🔥 Top niche videos (proven, replicable demand)",
+  compT:"Competitors",compHint:"🔄 = channel is old but started this niche recently (pivot). 🚀 = currently rising. 🌍 = high-RPM audience.",
+  thCh:"Channel",thSubs:"Subs",thViral:"Viral",thAvg:"Avg views",thEng:"Engage",thAge:"Channel age",thWork:"Working age",thRec:"Vids/90d",
   kwT:"Most repeated keywords among competitors",
   errNiche:"Enter the niche name.",errComp:"Add at least one competitor channel.",errNoCh:"Couldn't recognize any channel. Use @handle, channel URL, or UC...",
   footer:"NicheScope Pro · competitive intelligence · siradj85 · data from YouTube Data API v3",
-  yrs:"yrs",toLang:"ع"},
+  yrs:"yrs",mo:"mo",toLang:"ع"},
  ar:{subtitle:"أداة تحليل النتش الذكية — اعرف جدوى أي نتش قبل البدء فيه.",
   guideTitle:"كيف تعمل الأداة؟",
-  guideHtml:"أدخل اسم نتشك و3–5 قنوات منافسة، ونحلّل بيانات يوتيوب الحيّة لنخبرك: هل هو <b>فرصة ذهبية</b> أم <b>منافِس</b> أم <b>مُشبَع</b>؟ بناءً على <b>معامل الانتشار</b> (مشاهدات÷مشتركين)، و<b>الصعود الحديث</b> (لا العمر الظاهري)، و<b>الربح بالدولار</b> حسب التصنيف، و<b>التشبّع</b>، و<b>التفاعل</b>، و<b>ملاءمة المحتوى بلا وجه</b>.",
+  guideHtml:"أدخل اسم نتشك و3–5 قنوات منافسة، ونحلّل بيانات يوتيوب الحيّة لنخبرك: هل هو <b>فرصة ذهبية</b> أم <b>منافِس</b> أم <b>مُشبَع</b>؟ بناءً على <b>معامل الانتشار</b> (مشاهدات÷مشتركين)، و<b>عمر النشر الحقيقي</b> (متى بدأت القناة تنشر فعلاً — يكشف تغيير النتش)، و<b>الربح بالدولار</b> حسب التصنيف، و<b>التشبّع</b>، و<b>التفاعل</b>، و<b>ملاءمة المحتوى بلا وجه</b>.",
   legGreen:"🟢 فرصة ذهبية",legOrange:"🟠 منافِس",legRed:"🔴 مُشبَع",
   nicheLabel:"اسم النتش",nichePh:"مثال: تاريخ إسلامي / تطوير ذات / ألعاب",
   catLabel:"تصنيف النتش (لتقدير الأرباح)",compsLabel:"قنوات منافسة (3–5) — @handle أو الرابط أو UC...",
-  add:"+ أضف قناة أخرى",analyze:"🛰️ ابدأ التحليل العميق",
+  add:"+ أضف قناة أخرى",analyze:"🛰️ ابدأ التحليل العميق",print:"🖨️ حفظ / طباعة التقرير",
   stages:["📡 سحب بيانات يوتيوب ووسوم SEO المخفية","⚡ كشف تغيير المسار والعمر الحقيقي","🧮 حساب معامل الانتشار وعمق التفاعل","⚖️ فحص المخاطر وتدرّج RPM بالدولار","🤖 إنهاء التقرير والحكم النهائي"],
   vGreen:["🟢 فرصة ذهبية","نتش صاعد وربح جيد — ادخله الآن"],
   vOrange:["🟠 منافِس","فرصة موجودة لكن تحتاج تميّزاً ومجهوداً"],
@@ -160,12 +153,13 @@ const I18N={
   oppT:"تفصيل نقاط الفرصة",bViral:"معامل الانتشار",bFresh:"الزخم/الحداثة",bMoney:"قوة الربح (RPM + مصادر)",bSat:"انخفاض التشبّع",bEng:"التفاعل",
   monT:"مصادر الربح في هذا النتش",moAds:"إعلانات (RPM)",moAff:"أفلييت",moSpo:"رعايات",moProd:"منتجات/كورسات",
   moFace:"ملاءمة بلا وجه",moFaceD:"التعليمي بلا وجه = CPM ورعايات أعلى.",moGeo:"جمهور مرتفع RPM 🌍",moGeoD:"قنوات جمهورها أمريكا/أوروبا (RPM أعلى 5–10×).",
-  compT:"المنافسون (🚀 = صعد حديثاً رغم قِدَم القناة = دليل نتش رابح)",
-  thCh:"القناة",thSubs:"مشتركون",thViral:"انتشار",thAvg:"متوسط مشاهدات",thEng:"تفاعل",thAge:"العمر",thRec:"فيديو/90يوم",
+  topT:"🔥 أفضل فيديوهات النتش (طلب مثبت قابل للتكرار)",
+  compT:"المنافسون",compHint:"🔄 = القناة قديمة لكنها بدأت هذا النتش حديثاً (تغيير مسار). 🚀 = صاعدة حالياً. 🌍 = جمهور مرتفع RPM.",
+  thCh:"القناة",thSubs:"مشتركون",thViral:"انتشار",thAvg:"متوسط مشاهدات",thEng:"تفاعل",thAge:"عمر القناة",thWork:"عمر النشر",thRec:"فيديو/90يوم",
   kwT:"الكلمات المفتاحية الأكثر تكراراً عند المنافسين",
   errNiche:"اكتب اسم النتش.",errComp:"أضف قناة منافسة واحدة على الأقل.",errNoCh:"لم أتعرّف على أي قناة. استخدم @handle أو رابط القناة أو UC...",
   footer:"NicheScope Pro · أداة ذكاء تنافسي · siradj85 · البيانات من YouTube Data API v3",
-  yrs:"سنة",toLang:"EN"}
+  yrs:"سنة",mo:"شهر",toLang:"EN"}
 };
 let LANG=localStorage.getItem("ns_lang")||"en";
 const t=k=>(I18N[LANG][k]??I18N.en[k]??k);
@@ -196,101 +190,89 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const cacheGet=k=>{try{const o=JSON.parse(localStorage.getItem("ns_"+k));return o&&Date.now()-o.t<864e5?o.d:null}catch{return null}};
 const cacheSet=(k,d)=>localStorage.setItem("ns_"+k,JSON.stringify({t:Date.now(),d}));
 
-// ---- i18n apply + language ----
 function applyLang(){
-  document.documentElement.lang=LANG;
-  document.documentElement.dir=(LANG==="ar"?"rtl":"ltr");
+  document.documentElement.lang=LANG; document.documentElement.dir=(LANG==="ar"?"rtl":"ltr");
   document.querySelectorAll("[data-i18n]").forEach(e=>e.textContent=t(e.dataset.i18n));
   document.querySelectorAll("[data-i18n-html]").forEach(e=>e.innerHTML=t(e.dataset.i18nHtml));
   document.querySelectorAll("[data-i18n-ph]").forEach(e=>e.placeholder=t(e.dataset.i18nPh));
-  $("#addBtn").textContent=t("add"); $("#go").textContent=t("analyze");
-  $("#langBtn").textContent=t("toLang");
-  const cat=$("#cat"), sel=cat.value;
-  cat.innerHTML=""; CATS.forEach((c,i)=>cat.add(new Option(LANG==="ar"?c.ar:c.en,i)));
-  cat.value=sel||0;
+  $("#addBtn").textContent=t("add"); $("#go").textContent=t("analyze"); $("#langBtn").textContent=t("toLang");
+  const cat=$("#cat"),sel=cat.value; cat.innerHTML=""; CATS.forEach((c,i)=>cat.add(new Option(LANG==="ar"?c.ar:c.en,i))); cat.value=sel||0;
   if(DATA) renderReport();
 }
 function toggleLang(){ LANG=LANG==="en"?"ar":"en"; localStorage.setItem("ns_lang",LANG); applyLang(); }
-
-// ---- channel rows ----
-function addRow(val=""){
-  const d=document.createElement("div"); d.className="comprow";
+function addRow(val=""){ const d=document.createElement("div"); d.className="comprow";
   d.innerHTML=`<input placeholder="@channel  /  https://youtube.com/@..  /  UC..." value="${val.replace(/"/g,'&quot;')}"><button class="rm" onclick="this.parentNode.remove()">✕</button>`;
-  $("#compsList").appendChild(d);
-}
-function readComps(){ return [...document.querySelectorAll("#compsList input")].map(i=>i.value.trim()).filter(Boolean).slice(0,5); }
+  $("#compsList").appendChild(d); }
+const readComps=()=>[...document.querySelectorAll("#compsList input")].map(i=>i.value.trim()).filter(Boolean).slice(0,5);
 
-// ---- YouTube API ----
-async function yt(ep,params){
-  params.key=API_KEY;
-  const r=await fetch(YT+ep+"?"+new URLSearchParams(params));
-  const j=await r.json();
-  if(!r.ok){
-    const reason=j?.error?.errors?.[0]?.reason||"";
+async function yt(ep,params){ params.key=API_KEY;
+  const r=await fetch(YT+ep+"?"+new URLSearchParams(params)); const j=await r.json();
+  if(!r.ok){ const reason=j?.error?.errors?.[0]?.reason||"";
     if(reason==="quotaExceeded") throw new Error(LANG==="ar"?"تجاوزت حصة API اليوم (10,000).":"Daily API quota exceeded (10,000).");
     if(reason==="keyInvalid") throw new Error(LANG==="ar"?"مفتاح API غير صالح.":"Invalid API key.");
-    throw new Error(j?.error?.message||("HTTP "+r.status));
-  }
-  return j;
-}
-async function resolveId(raw){
-  raw=raw.trim(); if(!raw) return null; let m;
+    throw new Error(j?.error?.message||("HTTP "+r.status)); } return j; }
+async function resolveId(raw){ raw=raw.trim(); if(!raw) return null; let m;
   if(m=raw.match(/channel\/(UC[\w-]{20,})/)) return m[1];
   if(/^UC[\w-]{20,}$/.test(raw)) return raw;
   if(m=raw.match(/@([\w.\-]+)/)){ const j=await yt("channels",{part:"id",forHandle:m[1]}); if(j.items?.[0])return j.items[0].id; }
   if(m=raw.match(/\/(?:c|user)\/([\w.\-]+)/)){ const j=await yt("search",{part:"snippet",type:"channel",q:m[1],maxResults:1}); if(j.items?.[0])return j.items[0].snippet.channelId; }
   let j=await yt("channels",{part:"id",forHandle:raw.replace(/^@/,"")}); if(j.items?.[0])return j.items[0].id;
-  j=await yt("search",{part:"snippet",type:"channel",q:raw,maxResults:1}); if(j.items?.[0])return j.items[0].snippet.channelId;
-  return null;
-}
-function renderStages(active,done){
-  $("#stages").innerHTML=t("stages").map((s,i)=>`<div class="stg ${i<done?'done':''} ${i===active?'act':''}">${i<done?'✅':(i===active?'⏳':'•')} ${s}</div>`).join("");
-}
+  j=await yt("search",{part:"snippet",type:"channel",q:raw,maxResults:1}); if(j.items?.[0])return j.items[0].snippet.channelId; return null; }
+const renderStages=(a,d)=>$("#stages").innerHTML=t("stages").map((s,i)=>`<div class="stg ${i<d?'done':''} ${i===a?'act':''}">${i<d?'✅':(i===a?'⏳':'•')} ${s}</div>`).join("");
 const setRing=p=>{ $("#ring").style.setProperty("--pct",p+"%"); $("#ringTxt").textContent=Math.round(p)+"%"; };
 
 let DATA=null;
 async function analyze(){
   clearErr(); $("#report").style.display="none";
-  const niche=$("#niche").value.trim(), ci=+$("#cat").value||0, comps=readComps();
-  if(!niche) return showErr(t("errNiche"));
-  if(!comps.length) return showErr(t("errComp"));
+  const niche=$("#niche").value.trim(),ci=+$("#cat").value||0,comps=readComps();
+  if(!niche) return showErr(t("errNiche")); if(!comps.length) return showErr(t("errComp"));
   $("#go").disabled=true; $("#loader").style.display="block"; renderStages(0,0); setRing(0);
-  const t0=Date.now(), MS=4000;
-  const gate=async i=>{const w=t0+i*MS-Date.now(); if(w>0)await sleep(w);};
+  const t0=Date.now(),MS=4000; const gate=async i=>{const w=t0+i*MS-Date.now(); if(w>0)await sleep(w);};
   (function anim(){const p=Math.min(99,(Date.now()-t0)/(MS*5)*100);setRing(p);if($("#loader").style.display!=="none"&&p<99)requestAnimationFrame(anim);})();
   try{
     renderStages(0,0);
     const ids=[]; for(const c of comps){const id=await resolveId(c); if(id)ids.push(id);}
     if(!ids.length) throw new Error(t("errNoCh"));
     const ch=await yt("channels",{part:"snippet,statistics,contentDetails",id:[...new Set(ids)].join(","),maxResults:50});
-    await gate(1);
-    renderStages(1,1);
+    await gate(1); renderStages(1,1);
     const channels=[];
     for(const c of (ch.items||[])){
-      const cid=c.id, cc=cacheGet(cid); let vids=cc?.vids;
+      const cid=c.id,cc=cacheGet(cid); let vids=cc?.vids;
       if(!vids){ const pl=await yt("playlistItems",{part:"snippet",playlistId:c.contentDetails.relatedPlaylists.uploads,maxResults:50});
         vids=(pl.items||[]).map(it=>({id:it.snippet.resourceId.videoId,date:it.snippet.publishedAt,title:it.snippet.title})); }
       channels.push({id:cid,title:c.snippet.title,created:c.snippet.publishedAt,country:c.snippet.country||"",
-        subs:+(c.statistics.subscriberCount||0),views:+(c.statistics.viewCount||0),vcount:+(c.statistics.videoCount||0),vids});
+        subs:+(c.statistics.subscriberCount||0),views:+(c.statistics.viewCount||0),vcount:+(c.statistics.videoCount||0),
+        up:c.contentDetails.relatedPlaylists.uploads,vids});
     }
-    await gate(2);
-    renderStages(2,2);
+    await gate(2); renderStages(2,2);
+    const TOPV=[];
     for(const c of channels){
       const cc=cacheGet(c.id);
-      if(cc?.stats) Object.assign(c,cc.stats);
+      if(cc?.stats){ Object.assign(c,cc.stats); if(cc.top)TOPV.push(...cc.top); }
       else{
-        const ids2=c.vids.slice(0,40).map(v=>v.id).filter(Boolean); let totV=0,totE=0,n=0,rec=0,now=Date.now();
+        const ids2=c.vids.slice(0,40).map(v=>v.id).filter(Boolean); let totV=0,totE=0,n=0,rec=0,now=Date.now(); const tops=[];
         for(let i=0;i<ids2.length;i+=50){ const v=await yt("videos",{part:"statistics,snippet",id:ids2.slice(i,i+50).join(",")});
           (v.items||[]).forEach(it=>{const vv=+(it.statistics.viewCount||0),lk=+(it.statistics.likeCount||0),cm=+(it.statistics.commentCount||0);
-            totV+=vv; totE+=vv?(lk+cm)/vv:0; n++; if(now-new Date(it.snippet.publishedAt)<90*864e5)rec++;}); }
+            totV+=vv; totE+=vv?(lk+cm)/vv:0; n++; if(now-new Date(it.snippet.publishedAt)<90*864e5)rec++;
+            tops.push({id:it.id,title:it.snippet.title,views:vv,thumb:(it.snippet.thumbnails.medium||it.snippet.thumbnails.default||{}).url,subs:c.subs,ch:c.title});}); }
         c.avgViews=n?Math.round(totV/n):0; c.eng=n?totE/n*100:0; c.recent90=rec;
-        cacheSet(c.id,{vids:c.vids,stats:{avgViews:c.avgViews,eng:c.eng,recent90:c.recent90}});
+        // true working age: page uploads to the oldest (cap 10 pages = 500 vids)
+        let oldest=null,pg=await yt("playlistItems",{part:"snippet",playlistId:c.up,maxResults:50}),token=pg.nextPageToken,pages=1;
+        (pg.items||[]).forEach(it=>{const dt=it.snippet.publishedAt; if(!oldest||dt<oldest)oldest=dt;});
+        while(token&&pages<10){ pg=await yt("playlistItems",{part:"snippet",playlistId:c.up,maxResults:50,pageToken:token});
+          (pg.items||[]).forEach(it=>{const dt=it.snippet.publishedAt; if(!oldest||dt<oldest)oldest=dt;}); token=pg.nextPageToken; pages++; }
+        c.capped=!!token; c.firstDate=c.capped?c.created:(oldest||c.created); // very prolific -> treat as established
+        const top=tops.sort((a,b)=>b.views-a.views).slice(0,4);
+        cacheSet(c.id,{vids:c.vids,stats:{avgViews:c.avgViews,eng:c.eng,recent90:c.recent90,firstDate:c.firstDate,capped:c.capped},top});
+        TOPV.push(...top);
       }
-      c.viral=c.subs>0?c.views/c.subs:(c.views>0?50:0); c.ageYears=(Date.now()-new Date(c.created))/31536e6;
+      c.viral=c.subs>0?c.views/c.subs:(c.views>0?50:0);
+      c.ageYears=(Date.now()-new Date(c.created))/31536e6;
+      c.workYears=(Date.now()-new Date(c.firstDate||c.created))/31536e6;
+      c.pivot=!c.capped && (c.ageYears-c.workYears)>0.5;
     }
     await gate(3); renderStages(3,3);
-    const meta=CATS[ci], rpmMid=(meta.rpm[0]+meta.rpm[1])/2;
-    const avg=f=>channels.reduce((s,c)=>s+f(c),0)/channels.length;
+    const meta=CATS[ci],rpmMid=(meta.rpm[0]+meta.rpm[1])/2,avg=f=>channels.reduce((s,c)=>s+f(c),0)/channels.length;
     const avgViral=avg(c=>c.viral),avgSubs=avg(c=>c.subs),avgRecent=avg(c=>c.recent90),avgEng=avg(c=>c.eng),avgAvgViews=avg(c=>c.avgViews);
     const geoHigh=channels.filter(c=>HIGH_GEO[c.country]).length;
     const sViral=Math.min(100,avgViral*8),sFresh=Math.min(100,avgRecent*12),
@@ -301,25 +283,33 @@ async function analyze(){
     const stop=new Set("the a an of to in on for and or your you how why what is are با ما لا و في من على عن الى إلى مع هذا هذه".split(/\s+/));
     const fr={}; channels.forEach(c=>c.vids.forEach(v=>v.title.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu," ").split(/\s+/).forEach(w=>{if(w.length>2&&!stop.has(w))fr[w]=(fr[w]||0)+1;})));
     const keywords=Object.entries(fr).sort((a,b)=>b[1]-a[1]).slice(0,12);
+    const topVideos=[...new Map(TOPV.map(v=>[v.id,v])).values()].sort((a,b)=>(b.views/Math.max(1,b.subs))-(a.views/Math.max(1,a.subs))).slice(0,8);
     await gate(5);
-    DATA={niche,ci,meta,score,channels,avgViral,avgRecent,avgEng,avgAvgViews,geoHigh,keywords,sub:{sViral,sFresh,sMoney,sSat,sEng}};
+    DATA={niche,ci,score,channels,avgViral,avgRecent,avgEng,avgAvgViews,geoHigh,keywords,topVideos,sub:{sViral,sFresh,sMoney,sSat,sEng}};
     setRing(100); await sleep(250); $("#loader").style.display="none"; renderReport();
   }catch(e){ $("#loader").style.display="none"; showErr(e.message); }
   finally{ $("#go").disabled=false; }
 }
-const bar=(label,val,color)=>`<div><div style="display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted)"><span>${label}</span><span>${Math.round(val)}</span></div><div class="bar"><i style="width:${Math.min(100,val)}%;background:${color}"></i></div></div>`;
+const bar=(l,v,c)=>`<div><div style="display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted)"><span>${l}</span><span>${Math.round(v)}</span></div><div class="bar"><i style="width:${Math.min(100,v)}%;background:${c}"></i></div></div>`;
+const fmtAge=y=> y>=1? y.toFixed(1)+" "+t("yrs") : Math.max(1,Math.round(y*12))+" "+t("mo");
 function renderReport(){
-  const d=DATA; if(!d) return; const meta=CATS[d.ci]; // category may relabel on lang switch
+  const d=DATA; if(!d) return; const meta=CATS[d.ci];
   const v=d.score>=66?["v-green",...t("vGreen")]:d.score>=42?["v-orange",...t("vOrange")]:["v-red",...t("vRed")];
   const pil=n=>"●".repeat(n)+"○".repeat(5-n);
   const estLo=Math.round(d.avgAvgViews*meta.rpm[0]/1000),estHi=Math.round(d.avgAvgViews*meta.rpm[1]/1000);
-  const rows=d.channels.map(c=>{const rising=c.ageYears>1.5&&c.recent90>=3&&c.viral>3;
+  const rows=d.channels.map(c=>{const rising=c.recent90>=3&&c.viral>3;
     return `<tr><td>${c.title.replace(/</g,"&lt;")} ${HIGH_GEO[c.country]?'🌍':''}</td><td>${num(c.subs)}</td>
       <td class="${c.viral>=5?'pos':c.viral<2?'neg':''}">${c.viral>=50?'∞':c.viral.toFixed(1)}×</td>
-      <td>${num(c.avgViews)}</td><td>${c.eng.toFixed(1)}%</td><td>${c.ageYears.toFixed(1)} ${t("yrs")}</td>
-      <td>${c.recent90} ${rising?'🚀':''}</td></tr>`;}).join("");
+      <td>${num(c.avgViews)}</td><td>${c.eng.toFixed(1)}%</td>
+      <td>${fmtAge(c.ageYears)}</td>
+      <td class="${c.pivot?'pos':''}">${fmtAge(c.workYears)}${c.capped?'+':''} ${c.pivot?'🔄':''} ${rising?'🚀':''}</td>
+      <td>${c.recent90}</td></tr>`;}).join("");
+  const vids=d.topVideos.map(x=>{const xr=x.subs>0?x.views/x.subs:50;
+    return `<a class="vcard" href="https://youtu.be/${x.id}" target="_blank"><div class="th"><img loading="lazy" src="${x.thumb||''}"><span class="xb">${xr>=50?'∞':xr.toFixed(1)}×</span></div>
+      <div class="tt">${x.title.replace(/</g,"&lt;")}</div><div class="mt">${x.ch.replace(/</g,"&lt;")} · ${num(x.views)} 👁</div></a>`;}).join("");
   $("#report").innerHTML=`
     <div class="verdict ${v[0]}"><div class="score">${d.score}/100</div><h2>${v[1]}</h2><p>${v[2]}</p></div>
+    <div style="text-align:center;margin-top:10px"><button class="addbtn noprint" onclick="window.print()">${t("print")}</button></div>
     <div class="secttl">📊 ${t("coreT")}</div>
     <div class="cards">
       <div class="metric"><div class="k">${t("mViral")}</div><div class="v">${d.avgViral.toFixed(1)}×</div><small>${t("mViralD")}</small></div>
@@ -329,6 +319,8 @@ function renderReport(){
     </div>
     <div class="secttl">🎯 ${t("oppT")}</div>
     <div class="panel">${bar(t("bViral"),d.sub.sViral,"var(--neon)")}${bar(t("bFresh"),d.sub.sFresh,"var(--green)")}${bar(t("bMoney"),d.sub.sMoney,"var(--gold)")}${bar(t("bSat"),d.sub.sSat,"var(--accent)")}${bar(t("bEng"),d.sub.sEng,"var(--orange)")}</div>
+    <div class="secttl">${t("topT")}</div>
+    <div class="vidgrid">${vids||"—"}</div>
     <div class="secttl">💰 ${t("monT")}</div>
     <div class="cards">
       <div class="metric"><div class="k">${t("moAds")}</div><div class="v" style="font-size:1.1rem;color:var(--gold)">$${meta.rpm[0]}–$${meta.rpm[1]}</div></div>
@@ -339,14 +331,13 @@ function renderReport(){
       <div class="metric"><div class="k">${t("moGeo")}</div><div class="v">${d.geoHigh}/${d.channels.length}</div><small>${t("moGeoD")}</small></div>
     </div>
     <div class="secttl">🏆 ${t("compT")}</div>
-    <div class="panel" style="overflow:auto"><table><tr><th>${t("thCh")}</th><th>${t("thSubs")}</th><th>${t("thViral")}</th><th>${t("thAvg")}</th><th>${t("thEng")}</th><th>${t("thAge")}</th><th>${t("thRec")}</th></tr>${rows}</table></div>
+    <div class="info" style="margin:2px">${t("compHint")}</div>
+    <div class="panel" style="overflow:auto"><table><tr><th>${t("thCh")}</th><th>${t("thSubs")}</th><th>${t("thViral")}</th><th>${t("thAvg")}</th><th>${t("thEng")}</th><th>${t("thAge")}</th><th>${t("thWork")}</th><th>${t("thRec")}</th></tr>${rows}</table></div>
     <div class="secttl">🔑 ${t("kwT")}</div>
     <div class="kw">${d.keywords.map(([w,n])=>`<span>${w} <b style="color:var(--neon)">${n}</b></span>`).join("")||"—"}</div>`;
   $("#report").style.display="block"; $("#report").scrollIntoView({behavior:"smooth"});
 }
-// init: 3 default rows + language
-addRow();addRow();addRow();
-applyLang();
+addRow();addRow();addRow(); applyLang();
 </script>
 </body>
 </html>
