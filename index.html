@@ -3,312 +3,365 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Outlier Radar Pro — رادار النتشات الرابحة</title>
+<title>NicheScope Pro — ذكاء اختيار نتشات يوتوب</title>
 <style>
   :root{
-    --bg:#0b1020; --bg2:#0f172a; --card:#141d33; --card2:#1b263f;
-    --line:#243049; --txt:#e8eefc; --muted:#93a4c4; --accent:#3b82f6;
-    --gold:#f5c451; --green:#22c55e; --red:#ef4444; --chip:#1f2a44;
+    --bg:#070b18; --bg2:#0c1428; --card:#111c33; --line:#22304d; --txt:#e9eefc;
+    --muted:#8fa2c4; --accent:#3b82f6; --neon:#22d3ee; --gold:#f5c451;
+    --green:#22c55e; --orange:#f59e0b; --red:#ef4444; --chip:#16233e;
   }
-  *{box-sizing:border-box}
-  body{margin:0;font-family:"Segoe UI",Tahoma,system-ui,sans-serif;background:
-       radial-gradient(1200px 600px at 80% -10%,#16223f 0,transparent 60%),var(--bg);
-       color:var(--txt);min-height:100vh}
-  a{color:var(--accent);text-decoration:none}
-  .wrap{max-width:1200px;margin:0 auto;padding:22px}
-  header.top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:8px}
-  .brand{display:flex;align-items:center;gap:12px}
-  .logo{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#1e3a8a);
-        display:grid;place-items:center;font-size:24px;box-shadow:0 6px 20px #1e3a8a55}
-  .brand h1{font-size:1.5rem;margin:0}
-  .brand p{margin:0;color:var(--muted);font-size:.85rem}
+  *{box-sizing:border-box} html{scroll-behavior:smooth}
+  body{margin:0;font-family:"Segoe UI",Tahoma,system-ui,sans-serif;color:var(--txt);
+    background:radial-gradient(1100px 500px at 85% -8%,#13224a 0,transparent 55%),
+               radial-gradient(900px 500px at 5% 0%,#0e2030 0,transparent 50%),var(--bg);min-height:100vh}
+  a{color:var(--neon);text-decoration:none}
+  .wrap{max-width:1150px;margin:0 auto;padding:22px}
+  .top{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .logo{width:48px;height:48px;border-radius:13px;background:linear-gradient(135deg,var(--neon),var(--accent));
+    display:grid;place-items:center;font-size:24px;box-shadow:0 6px 22px #22d3ee44}
+  .top h1{margin:0;font-size:1.55rem} .top p{margin:0;color:var(--muted);font-size:.85rem}
   .panel{background:linear-gradient(180deg,var(--card),var(--bg2));border:1px solid var(--line);
-         border-radius:16px;padding:16px;margin-top:14px}
-  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:end}
-  .field{display:flex;flex-direction:column;gap:6px}
-  .field label{font-size:.8rem;color:var(--muted)}
-  input,select{background:#0c1426;border:1px solid var(--line);color:var(--txt);
-        border-radius:10px;padding:11px 12px;font-size:.95rem;outline:none}
-  input:focus,select:focus{border-color:var(--accent)}
-  .grow{flex:1;min-width:220px}
-  button{cursor:pointer;border:none;border-radius:10px;padding:12px 18px;font-weight:700;font-size:.95rem}
-  .btn{background:linear-gradient(135deg,var(--accent),#2563eb);color:#fff;box-shadow:0 6px 18px #2563eb55}
-  .btn:hover{filter:brightness(1.08)}
-  .btn.ghost{background:var(--chip);color:var(--txt);box-shadow:none;border:1px solid var(--line)}
-  .seg{display:flex;background:#0c1426;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-  .seg button{background:transparent;color:var(--muted);padding:10px 16px;border-radius:0}
-  .seg button.active{background:var(--accent);color:#fff}
-  .hint{font-size:.8rem;color:var(--muted);margin-top:8px}
-  .keyrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-  .toolbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin:18px 2px 8px}
-  .count{color:var(--muted);font-size:.9rem}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
-  .vcard{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;
-         display:flex;flex-direction:column;transition:transform .15s,border-color .15s}
-  .vcard:hover{transform:translateY(-3px);border-color:var(--accent)}
-  .thumb{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden}
-  .thumb img{width:100%;height:100%;object-fit:cover;display:block}
-  .badge{position:absolute;top:8px;inset-inline-start:8px;background:#000a;backdrop-filter:blur(4px);
-         border:1px solid #fff2;border-radius:999px;padding:4px 10px;font-weight:800;font-size:.8rem}
-  .dur{position:absolute;bottom:8px;inset-inline-end:8px;background:#000b;border-radius:6px;padding:2px 7px;font-size:.75rem}
-  .vbody{padding:12px;display:flex;flex-direction:column;gap:7px;flex:1}
-  .vtitle{font-size:.95rem;font-weight:700;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;
-          -webkit-box-orient:vertical;overflow:hidden;color:var(--txt)}
-  .vmeta{color:var(--muted);font-size:.82rem;display:flex;flex-wrap:wrap;gap:8px}
-  .stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
-  .stat{background:var(--chip);border-radius:8px;padding:5px 9px;font-size:.78rem}
-  .x-low{color:var(--muted)} .x-mid{color:var(--gold)} .x-high{color:var(--green)}
-  .state{text-align:center;padding:50px 10px;color:var(--muted)}
-  .spinner{width:42px;height:42px;border:4px solid var(--line);border-top-color:var(--accent);
-           border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px}
-  @keyframes spin{to{transform:rotate(360deg)}}
+    border-radius:16px;padding:16px;margin-top:14px}
+  .lbl{font-size:.8rem;color:var(--muted);margin-bottom:6px;display:block}
+  input,select,textarea{width:100%;background:#0a1222;border:1px solid var(--line);color:var(--txt);
+    border-radius:10px;padding:11px 12px;font-size:.95rem;outline:none;font-family:inherit}
+  input:focus,select:focus,textarea:focus{border-color:var(--neon)}
+  textarea{resize:vertical;min-height:96px;line-height:2}
+  .row{display:flex;gap:12px;flex-wrap:wrap}
+  .col{flex:1;min-width:200px}
+  button{cursor:pointer;border:none;border-radius:11px;font-weight:800;font-size:1rem}
+  .go{width:100%;margin-top:14px;padding:15px;color:#04121f;
+    background:linear-gradient(135deg,var(--neon),var(--accent));box-shadow:0 8px 24px #22d3ee33}
+  .go:hover{filter:brightness(1.07)} .go:disabled{opacity:.5;cursor:wait}
+  .info{line-height:1.95;color:var(--muted);font-size:.9rem}
+  .info b{color:var(--txt)}
+  .legend{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+  .tag{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:.8rem}
+  /* loader */
+  #loader{display:none;text-align:center;padding:18px}
+  .ring{width:120px;height:120px;border-radius:50%;margin:6px auto 16px;
+    background:conic-gradient(var(--neon) var(--pct,0%),#1b2942 0);display:grid;place-items:center;transition:.3s}
+  .ring i{width:96px;height:96px;border-radius:50%;background:var(--bg2);display:grid;place-items:center;
+    font-style:normal;font-weight:800;font-size:1.5rem;color:var(--neon)}
+  .stages{max-width:520px;margin:0 auto;text-align:start}
+  .stg{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;margin:6px 0;
+    border:1px solid var(--line);background:#0c1426;color:var(--muted);transition:.3s}
+  .stg.act{border-color:var(--neon);color:var(--txt);box-shadow:0 0 0 1px var(--neon) inset}
+  .stg.done{color:var(--green);border-color:#14532d}
+  .stg b{font-size:.95rem}
+  /* verdict */
+  #report{display:none}
+  .verdict{border-radius:18px;padding:22px;text-align:center;margin-top:16px;border:2px solid}
+  .verdict h2{margin:.2em 0;font-size:2rem} .verdict p{margin:.2em 0;font-size:1.05rem}
+  .v-green{background:#0c2a16;border-color:var(--green);color:#bbf7d0}
+  .v-orange{background:#2a1e07;border-color:var(--orange);color:#fde68a}
+  .v-red{background:#2a0f12;border-color:var(--red);color:#fecaca}
+  .score{font-size:3rem;font-weight:900}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:14px}
+  .metric{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+  .metric .k{color:var(--muted);font-size:.82rem} .metric .v{font-size:1.5rem;font-weight:800;margin-top:4px}
+  .metric small{color:var(--muted);font-size:.78rem;display:block;margin-top:4px;line-height:1.5}
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:.85rem}
+  th,td{padding:9px;border-bottom:1px solid var(--line);text-align:start}
+  th{color:var(--muted);font-weight:700} .pos{color:var(--green)} .neg{color:var(--red)}
+  .kw{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .kw span{background:var(--chip);border:1px solid var(--line);border-radius:8px;padding:6px 11px;font-size:.85rem}
+  .secttl{margin:18px 2px 2px;font-size:1.1rem;display:flex;align-items:center;gap:8px}
   .err{background:#3b1320;border:1px solid #7f1d1d;color:#fecaca;border-radius:12px;padding:14px;margin-top:14px}
-  footer{color:var(--muted);text-align:center;font-size:.82rem;padding:26px 0 10px}
-  .pill{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:.78rem;color:var(--muted)}
+  footer{color:var(--muted);text-align:center;font-size:.8rem;padding:26px 0 10px}
+  .bars{margin-top:6px} .bar{height:9px;border-radius:6px;background:#1b2942;overflow:hidden;margin:5px 0}
+  .bar i{display:block;height:100%;border-radius:6px}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header class="top">
-    <div class="brand">
-      <div class="logo">📡</div>
-      <div>
-        <h1>Outlier Radar <span style="color:var(--gold)">Pro</span></h1>
-        <p>اكتشف النتشات الرابحة عبر الفيديوهات التي تتفوّق على حجم قنواتها</p>
-      </div>
-    </div>
-    <span class="pill" id="quotaPill">جاهز</span>
-  </header>
-
-  <!-- how it works -->
-  <div class="panel" style="border-color:#2a3a5e">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-      <span style="font-size:1.2rem">💡</span><b>كيف تقرأ النتائج وتستفيد منها؟</b>
-    </div>
-    <p style="margin:6px 0;color:var(--muted);line-height:1.9;font-size:.92rem">
-      كل بطاقة فيديو تحمل <b style="color:var(--gold)">معامل التفوّق (×)</b> = المشاهدات ÷ مشتركي القناة.
-      كلما زاد الرقم، كان الفيديو قد <b>تجاوز حجم قناته بكثير</b> — أي أن الموضوع نجح بقوة رغم صِغر القناة،
-      وهذا دليل على <b style="color:var(--green)">طلب حقيقي قابل للتكرار</b> (وليس مجرد قناة كبيرة تجرّ المشاهدات).
-    </p>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin:10px 0">
-      <span class="stat x-high">🟢 ‏10× فأكثر = فرصة قوية جداً</span>
-      <span class="stat x-mid">🟡 ‏3×–10× = فرصة جيدة</span>
-      <span class="stat x-low">⚪ أقل من ‏3× = عادي</span>
-    </div>
-    <p style="margin:6px 0;color:var(--muted);line-height:1.9;font-size:.92rem">
-      <b>طريقة الاستخدام:</b> اكتب نتشك → رتّب حسب «معامل التفوّق» → ادرس البطاقات الخضراء
-      (الموضوع، العنوان، الصورة المصغّرة) → اصنع محتوى مشابهاً وأفضل في نفس الفكرة. 👁 = المشاهدات، 👥 = مشتركو القناة.
-    </p>
+  <div class="top">
+    <div class="logo">🛰️</div>
+    <div><h1>NicheScope <span style="color:var(--gold)">Pro</span></h1>
+      <p>ذكاء اختيار النتش: حلّل الجدوى والمنافسة الحقيقية قبل أن تبدأ</p></div>
   </div>
 
-  <!-- search -->
+  <!-- guide -->
   <div class="panel">
-    <div class="row" style="margin-bottom:12px">
-      <div class="seg" id="modeSeg">
-        <button data-mode="keyword" class="active">بحث بكلمة مفتاحية</button>
-        <button data-mode="channel">تحليل قناة</button>
-      </div>
-      <div class="field grow">
-        <label id="qLabel">الكلمة المفتاحية / النتش</label>
-        <input id="query" class="grow" placeholder="مثال: تاريخ إسلامي" />
-      </div>
-      <button class="btn" id="searchBtn">🔍 ابحث</button>
+    <div class="secttl">💡 كيف تعمل الأداة؟</div>
+    <p class="info">
+      أدخل اسم نتشك و3–5 قنوات منافسة، وسنحلّل بيانات يوتيوب الحيّة لنخبرك:
+      هل النتش <b style="color:var(--green)">فرصة ذهبية</b> أم <b style="color:var(--orange)">منافس</b> أم <b style="color:var(--red)">مُشبَع</b>؟
+      نعتمد على: <b>معامل الانتشار</b> (مشاهدات÷مشتركين)، <b>صعود القنوات حديثاً</b> (لا عمرها الظاهري)،
+      <b>الربح بالدولار</b> حسب التصنيف، <b>التشبّع</b>، <b>التفاعل</b>، و<b>ملاءمة المحتوى بلا وجه</b>.
+    </p>
+    <div class="legend">
+      <span class="tag" style="color:var(--green)">🟢 فرصة ذهبية</span>
+      <span class="tag" style="color:var(--orange)">🟠 منافس — يحتاج مجهوداً</span>
+      <span class="tag" style="color:var(--red)">🔴 مُشبَع — تجنّبه</span>
     </div>
+  </div>
+
+  <!-- input -->
+  <div class="panel">
     <div class="row">
-      <div class="field">
-        <label>النشر خلال</label>
-        <select id="days">
-          <option value="7">آخر 7 أيام</option>
-          <option value="30" selected>آخر 30 يوماً</option>
-          <option value="90">آخر 90 يوماً</option>
-          <option value="180">آخر 6 أشهر</option>
-          <option value="365">آخر سنة</option>
-          <option value="0">كل الأوقات</option>
-        </select>
+      <div class="col">
+        <label class="lbl">اسم النتش</label>
+        <input id="niche" placeholder="مثال: تاريخ إسلامي / تطوير ذات / ألعاب" />
       </div>
-      <div class="field">
-        <label>أدنى معامل تفوّق</label>
-        <select id="minX">
-          <option value="0">بدون</option>
-          <option value="2">2×</option>
-          <option value="5" selected>5×</option>
-          <option value="10">10×</option>
-          <option value="20">20×</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>المدة</label>
-        <select id="dur">
-          <option value="any" selected>أي مدة</option>
-          <option value="short">قصير (&lt;4د)</option>
-          <option value="medium">متوسط (4-20د)</option>
-          <option value="long">طويل (&gt;20د)</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>عدد النتائج</label>
-        <select id="max">
-          <option value="25">25</option>
-          <option value="50" selected>50</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>الدولة</label>
-        <select id="region">
-          <option value="">عالمي</option>
-          <option value="DZ">الجزائر</option>
-          <option value="SA">السعودية</option>
-          <option value="EG">مصر</option>
-          <option value="MA">المغرب</option>
-          <option value="AE">الإمارات</option>
-          <option value="US">أمريكا</option>
-        </select>
+      <div class="col">
+        <label class="lbl">تصنيف النتش (لتقدير الأرباح)</label>
+        <select id="cat"></select>
       </div>
     </div>
+    <label class="lbl" style="margin-top:12px">قنوات منافسة (3–5) — كل قناة في سطر — يدعم @handle و الرابط و UC...</label>
+    <textarea id="comps" placeholder="@channel1
+https://youtube.com/@channel2
+UCxxxxxxxxxxxxxxxxxxxxxx"></textarea>
+    <button class="go" id="go">🛰️ ابدأ التحليل العميق</button>
   </div>
 
   <div id="errBox"></div>
 
-  <div class="toolbar" id="toolbar" style="display:none">
-    <div class="count" id="count"></div>
-    <div class="row" style="align-items:center">
-      <div class="field">
-        <label>ترتيب حسب</label>
-        <select id="sort">
-          <option value="x" selected>معامل التفوّق</option>
-          <option value="views">المشاهدات</option>
-          <option value="date">الأحدث</option>
-        </select>
-      </div>
-      <button class="btn ghost" id="csvBtn">⬇ تصدير CSV</button>
-    </div>
+  <!-- loader -->
+  <div class="panel" id="loader">
+    <div class="ring" id="ring"><i id="ringTxt">0%</i></div>
+    <div class="stages" id="stages"></div>
   </div>
 
-  <div id="results"></div>
+  <!-- report -->
+  <div id="report"></div>
 
-  <footer>Outlier Radar Pro · أداة بحث نتشات يوتوب · صُنع لـ siradj85</footer>
+  <footer>NicheScope Pro · أداة ذكاء تنافسي · siradj85 · البيانات من YouTube Data API v3</footer>
 </div>
 
 <script>
-const $ = s => document.querySelector(s);
-const API_KEY = "AIzaSyASyKvq39AwGH6Nsa7wEpjRAW8z8JIJTDc"; // مفتاح الموقع العام
-let MODE = "keyword", LAST = [];
+const $=s=>document.querySelector(s);
+const API_KEY="AIzaSyASyKvq39AwGH6Nsa7wEpjRAW8z8JIJTDc";
+const YT="https://www.googleapis.com/youtube/v3/";
 
-$("#modeSeg").onclick = e => {
-  const b = e.target.closest("button[data-mode]"); if(!b) return;
-  MODE = b.dataset.mode;
-  [...$("#modeSeg").children].forEach(x=>x.classList.toggle("active", x===b));
-  $("#qLabel").textContent = MODE==="keyword" ? "الكلمة المفتاحية / النتش" : "معرّف القناة (UC...) أو المعرّف @handle";
-  $("#query").placeholder = MODE==="keyword" ? "مثال: تاريخ إسلامي" : "مثال: @MrBeast أو UCX6OQ3DkcsbYNE6H8uQQuVA";
+// ---- RPM tiers (USD) + monetization pillars per category ----
+const CATS={
+  "اقتصاد / استثمار / مال": {rpm:[15,40], aff:5, spo:5, prod:5, faceless:5},
+  "عقارات / تأمين / قانون": {rpm:[20,50], aff:4, spo:4, prod:4, faceless:4},
+  "تسويق رقمي / أعمال": {rpm:[12,30], aff:5, spo:5, prod:5, faceless:5},
+  "تقنية / برمجة / ذكاء اصطناعي": {rpm:[10,25], aff:5, spo:4, prod:5, faceless:5},
+  "تطوير ذات / تحفيز": {rpm:[8,18], aff:4, spo:4, prod:5, faceless:5},
+  "تعليم / شروحات / how-to": {rpm:[8,20], aff:4, spo:4, prod:5, faceless:5},
+  "صحة / لياقة": {rpm:[6,15], aff:5, spo:4, prod:4, faceless:4},
+  "أخبار / سياسة": {rpm:[4,10], aff:2, spo:3, prod:2, faceless:4},
+  "سفر": {rpm:[4,10], aff:4, spo:4, prod:3, faceless:2},
+  "طبخ / طعام": {rpm:[3,8], aff:3, spo:4, prod:3, faceless:3},
+  "جمال / موضة": {rpm:[5,12], aff:5, spo:5, prod:4, faceless:2},
+  "ترفيه / فلوغ": {rpm:[2,6], aff:2, spo:3, prod:2, faceless:2},
+  "ألعاب": {rpm:[2,5], aff:3, spo:4, prod:2, faceless:3},
+  "أطفال": {rpm:[1,4], aff:1, spo:2, prod:2, faceless:4},
+  "موسيقى": {rpm:[1,3], aff:1, spo:2, prod:2, faceless:3},
+  "تاريخ / ثقافة / دين": {rpm:[5,12], aff:3, spo:3, prod:4, faceless:5},
 };
-$("#searchBtn").onclick = run;
-$("#query").addEventListener("keydown", e => { if(e.key==="Enter") run(); });
-$("#sort").onchange = render;
-$("#csvBtn").onclick = exportCSV;
+const HIGH_RPM_GEO={US:1,GB:1,CA:1,AU:1,DE:1,NL:1,CH:1,SE:1,NO:1,DK:1,AE:1};
+const catSel=$("#cat"); Object.keys(CATS).forEach(k=>catSel.add(new Option(k,k)));
 
-const num = n => Number(n||0).toLocaleString("en-US");
-const flash = t => { const p=$("#quotaPill"); p.textContent=t; setTimeout(()=>p.textContent="جاهز",2500); };
-function showErr(msg){ $("#errBox").innerHTML = '<div class="err">⚠ '+msg+'</div>'; }
-function clearErr(){ $("#errBox").innerHTML=""; }
+const num=n=>Number(n||0).toLocaleString("en-US");
+const showErr=m=>$("#errBox").innerHTML='<div class="err">⚠ '+m+'</div>';
+const clearErr=()=>$("#errBox").innerHTML="";
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const cacheGet=k=>{try{const o=JSON.parse(localStorage.getItem("ns_"+k));return o&&Date.now()-o.t<864e5?o.d:null}catch{return null}};
+const cacheSet=(k,d)=>localStorage.setItem("ns_"+k,JSON.stringify({t:Date.now(),d}));
 
-function isoDurToText(iso){
-  const m = /PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/.exec(iso||"")||[];
-  const h=+m[1]||0,mi=+m[2]||0,s=+m[3]||0;
-  return (h?h+":":"")+String(mi).padStart(h?2:1,"0")+":"+String(s).padStart(2,"0");
-}
-async function api(endpoint, params){
-  params.key = API_KEY;
-  const url = "https://www.googleapis.com/youtube/v3/"+endpoint+"?"+new URLSearchParams(params);
-  const r = await fetch(url);
-  const j = await r.json();
+async function yt(ep,params){
+  params.key=API_KEY;
+  const r=await fetch(YT+ep+"?"+new URLSearchParams(params));
+  const j=await r.json();
   if(!r.ok){
-    const reason = j?.error?.errors?.[0]?.reason || "";
-    if(reason==="quotaExceeded") throw new Error("تجاوزت حصة الـ API لليوم (10,000). جرّب غداً أو مفتاحاً آخر.");
-    if(reason==="keyInvalid"||r.status===400) throw new Error("المفتاح غير صالح أو لم تُفعّل YouTube Data API v3.");
-    throw new Error(j?.error?.message || ("خطأ HTTP "+r.status));
+    const reason=j?.error?.errors?.[0]?.reason||"";
+    if(reason==="quotaExceeded") throw new Error("تجاوزت حصة API اليوم (10,000). جرّب غداً.");
+    if(reason==="keyInvalid") throw new Error("مفتاح API غير صالح أو الخدمة غير مفعّلة.");
+    throw new Error(j?.error?.message||("خطأ HTTP "+r.status));
   }
   return j;
 }
-async function resolveChannelId(input){
-  input = input.trim();
-  if(/^UC[\w-]{20,}$/.test(input)) return input;
-  let handle = input.replace(/^.*@/,"@").replace(/^@?/,"@");
-  let j = await api("channels",{part:"id",forHandle:handle.replace("@","")});
-  if(j.items&&j.items[0]) return j.items[0].id;
-  j = await api("search",{part:"snippet",type:"channel",q:input,maxResults:1});
-  if(j.items&&j.items[0]) return j.items[0].snippet.channelId;
-  throw new Error("لم أجد القناة. استخدم معرّف UC... أو @handle.");
+// resolve a competitor input to a channelId (prefers cheap forHandle / UC)
+async function resolveId(raw){
+  raw=raw.trim(); if(!raw) return null;
+  let m;
+  if(m=raw.match(/channel\/(UC[\w-]{20,})/)) return m[1];
+  if(/^UC[\w-]{20,}$/.test(raw)) return raw;
+  if(m=raw.match(/@([\w.\-]+)/)){ const j=await yt("channels",{part:"id",forHandle:m[1]}); if(j.items?.[0])return j.items[0].id; }
+  if(m=raw.match(/\/(?:c|user)\/([\w.\-]+)/)){ const j=await yt("search",{part:"snippet",type:"channel",q:m[1],maxResults:1}); if(j.items?.[0])return j.items[0].snippet.channelId; }
+  // fallback: treat as handle then search
+  let j=await yt("channels",{part:"id",forHandle:raw.replace(/^@/,"")}); if(j.items?.[0])return j.items[0].id;
+  j=await yt("search",{part:"snippet",type:"channel",q:raw,maxResults:1}); if(j.items?.[0])return j.items[0].snippet.channelId;
+  return null;
 }
 
-async function run(){
-  clearErr(); LAST=[];
-  const q = $("#query").value.trim();
-  if(!q) return showErr("اكتب كلمة مفتاحية أو معرّف قناة.");
-  $("#toolbar").style.display="none";
-  $("#results").innerHTML = '<div class="state"><div class="spinner"></div>جارٍ البحث وحساب معاملات التفوّق…</div>';
+const STAGES=[
+  "📡 سحب بيانات يوتيوب ووسوم SEO المخفية",
+  "⚡ كشف تغيير المسار والتحقق من العمر الحقيقي",
+  "🧮 حساب معامل الانتشار وعمق التفاعل",
+  "⚖️ فحص المخاطر: أمان الربح وتدرّج RPM بالدولار",
+  "🤖 إنهاء التقرير ومعايرة الحكم النهائي",
+];
+function renderStages(active,done){
+  $("#stages").innerHTML=STAGES.map((s,i)=>
+    `<div class="stg ${i<done?'done':''} ${i===active?'act':''}"><b>${i<done?'✅':(i===active?'⏳':'•')} ${s}</b></div>`).join("");
+}
+function setRing(p){ $("#ring").style.setProperty("--pct",p+"%"); $("#ringTxt").textContent=Math.round(p)+"%"; }
+
+let DATA=null;
+$("#go").onclick=analyze;
+
+async function analyze(){
+  clearErr(); $("#report").style.display="none";
+  const niche=$("#niche").value.trim(), cat=catSel.value;
+  const comps=$("#comps").value.split("\n").map(x=>x.trim()).filter(Boolean).slice(0,5);
+  if(!niche) return showErr("اكتب اسم النتش.");
+  if(comps.length<1) return showErr("أضف قناة منافسة واحدة على الأقل (3–5 مفضّل).");
+  $("#go").disabled=true; $("#loader").style.display="block"; renderStages(0,0); setRing(0);
+  const t0=Date.now(); const STAGE_MS=4000; // ~20s total, real work paced
+  const stageGate=async(i)=>{ const target=t0+(i)*STAGE_MS; const wait=target-Date.now(); if(wait>0)await sleep(wait); };
+  const animate=()=>{ const p=Math.min(99,(Date.now()-t0)/(STAGE_MS*5)*100); setRing(p); if($("#loader").style.display!=="none"&&p<99)requestAnimationFrame(animate); };
+  animate();
   try{
-    const days=+$("#days").value, maxRes=+$("#max").value, dur=$("#dur").value, region=$("#region").value;
-    const sp = {part:"snippet", type:"video", maxResults:maxRes, order:"viewCount"};
-    if(days>0) sp.publishedAfter = new Date(Date.now()-days*864e5).toISOString();
-    if(dur!=="any") sp.videoDuration = dur;
-    if(region) sp.regionCode = region;
-    if(MODE==="keyword") sp.q = q; else sp.channelId = await resolveChannelId(q);
+    // STAGE 1: resolve + channel stats
+    renderStages(0,0);
+    const ids=[];
+    for(const c of comps){ const id=await resolveId(c); if(id)ids.push(id); }
+    if(!ids.length) throw new Error("لم أتعرّف على أي قناة. استخدم @handle أو رابط القناة أو UC...");
+    const uniq=[...new Set(ids)];
+    const ch=await yt("channels",{part:"snippet,statistics,contentDetails",id:uniq.join(","),maxResults:50});
+    await stageGate(1);
 
-    const s = await api("search", sp);
-    const ids = (s.items||[]).map(i=>i.id.videoId).filter(Boolean);
-    if(!ids.length){ $("#results").innerHTML='<div class="state">لا نتائج. جرّب كلمة أخرى أو وسّع المدة.</div>'; return; }
-
-    const v = await api("videos",{part:"statistics,contentDetails,snippet",id:ids.join(","),maxResults:50});
-    const chIds=[...new Set((v.items||[]).map(x=>x.snippet.channelId))];
-    const subMap={};
-    for(let i=0;i<chIds.length;i+=50){
-      const c = await api("channels",{part:"statistics",id:chIds.slice(i,i+50).join(",")});
-      (c.items||[]).forEach(x=>subMap[x.id]=+(x.statistics.subscriberCount||0));
+    // STAGE 2: recent uploads per channel (recency, frequency, pivot signal)
+    renderStages(1,1);
+    const channels=[];
+    for(const c of (ch.items||[])){
+      const cid=c.id, cached=cacheGet(cid);
+      const up=c.contentDetails.relatedPlaylists.uploads;
+      let vids=cached?.vids;
+      if(!vids){
+        const pl=await yt("playlistItems",{part:"snippet",playlistId:up,maxResults:50});
+        vids=(pl.items||[]).map(it=>({id:it.snippet.resourceId.videoId,date:it.snippet.publishedAt,title:it.snippet.title}));
+      }
+      channels.push({
+        id:cid,title:c.snippet.title,created:c.snippet.publishedAt,country:c.snippet.country||"",
+        subs:+(c.statistics.subscriberCount||0),views:+(c.statistics.viewCount||0),vcount:+(c.statistics.videoCount||0),
+        vids
+      });
     }
-    const minX=+$("#minX").value;
-    LAST = (v.items||[]).map(it=>{
-      const views=+(it.statistics.viewCount||0), subs=subMap[it.snippet.channelId]||0;
-      const x = subs>0 ? views/subs : (views>0?999:0);
-      return {id:it.id, title:it.snippet.title, channel:it.snippet.channelTitle,
-        thumb:(it.snippet.thumbnails.medium||it.snippet.thumbnails.default).url,
-        views, subs, x, date:it.snippet.publishedAt, dur:isoDurToText(it.contentDetails.duration)};
-    }).filter(r=> r.x>=minX);
-    render();
-  }catch(e){ $("#results").innerHTML=""; showErr(e.message); }
+    await stageGate(2);
+
+    // STAGE 3: video stats -> engagement + recent performance
+    renderStages(2,2);
+    for(const c of channels){
+      const cached=cacheGet(c.id);
+      if(cached?.stats){ Object.assign(c,cached.stats); }
+      else{
+        const ids2=c.vids.slice(0,40).map(v=>v.id).filter(Boolean);
+        let totV=0,totE=0,n=0,recent=0,now=Date.now();
+        for(let i=0;i<ids2.length;i+=50){
+          const v=await yt("videos",{part:"statistics,snippet",id:ids2.slice(i,i+50).join(",")});
+          (v.items||[]).forEach(it=>{
+            const vv=+(it.statistics.viewCount||0),lk=+(it.statistics.likeCount||0),cm=+(it.statistics.commentCount||0);
+            totV+=vv; totE+=vv?(lk+cm)/vv:0; n++;
+            if(now-new Date(it.snippet.publishedAt)<90*864e5)recent++;
+          });
+        }
+        c.avgViews=n?Math.round(totV/n):0; c.eng=n?(totE/n*100):0; c.recent90=recent;
+        cacheSet(c.id,{vids:c.vids,stats:{avgViews:c.avgViews,eng:c.eng,recent90:c.recent90}});
+      }
+      c.viral=c.subs>0?c.views/c.subs:(c.views>0?50:0);
+      c.oldestRecent=c.vids.length?c.vids[c.vids.length-1].date:c.created;
+      c.ageYears=((Date.now()-new Date(c.created))/31536e6);
+    }
+    await stageGate(3);
+
+    // STAGE 4: scoring (monetization, saturation, geo)
+    renderStages(3,3);
+    const meta=CATS[cat], rpmMid=(meta.rpm[0]+meta.rpm[1])/2;
+    const avgViral=channels.reduce((s,c)=>s+c.viral,0)/channels.length;
+    const avgSubs=channels.reduce((s,c)=>s+c.subs,0)/channels.length;
+    const avgRecent=channels.reduce((s,c)=>s+c.recent90,0)/channels.length;
+    const avgEng=channels.reduce((s,c)=>s+c.eng,0)/channels.length;
+    const geoHigh=channels.filter(c=>HIGH_RPM_GEO[c.country]).length;
+    // sub-scores 0-100
+    const sViral=Math.min(100,avgViral*8);                 // viral coefficient
+    const sFresh=Math.min(100,avgRecent*12);               // recent activity/momentum
+    const sMoney=Math.min(100,(rpmMid/50)*100*0.6 + (meta.aff+meta.spo+meta.prod)/15*40);
+    const sSat=Math.max(0,100-Math.log10(Math.max(10,avgSubs))*16); // smaller channels = less saturated
+    const sEng=Math.min(100,avgEng*18);
+    const score=Math.round(sViral*0.30+sFresh*0.22+sMoney*0.24+sSat*0.16+sEng*0.08);
+    await stageGate(4);
+
+    // STAGE 5: keywords + verdict
+    renderStages(4,4);
+    const stop=new Set("في من على عن الى إلى مع هذا هذه ذلك the a an of to in on for and or your you how why what is are با ما لا و في يا".split(/\s+/));
+    const freq={};
+    channels.forEach(c=>c.vids.forEach(v=>v.title.toLowerCase().replace(/[^\p{L}\p{N}\s]/gu," ").split(/\s+/).forEach(w=>{
+      if(w.length>2&&!stop.has(w))freq[w]=(freq[w]||0)+1;})));
+    const keywords=Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,12);
+    await stageGate(5);
+
+    DATA={niche,cat,meta,score,channels,avgViral,avgRecent,avgEng,geoHigh,rpmMid,keywords,
+      sub:{sViral,sFresh,sMoney,sSat,sEng}};
+    setRing(100); await sleep(300);
+    $("#loader").style.display="none";
+    renderReport();
+  }catch(e){ $("#loader").style.display="none"; showErr(e.message); }
+  finally{ $("#go").disabled=false; }
 }
 
-function render(){
-  if(!LAST.length){ $("#results").innerHTML='<div class="state">لا نتائج مطابقة للمعامل المطلوب. خفّض «أدنى معامل تفوّق».</div>'; $("#toolbar").style.display="none"; return; }
-  const sort=$("#sort").value;
-  const arr=[...LAST].sort((a,b)=> sort==="views"?b.views-a.views : sort==="date"?new Date(b.date)-new Date(a.date) : b.x-a.x);
-  $("#toolbar").style.display="flex";
-  $("#count").textContent = arr.length+" فيديو · مرتّبة حسب "+({x:"معامل التفوّق",views:"المشاهدات",date:"الأحدث"}[sort]);
-  $("#results").innerHTML = '<div class="grid">'+arr.map(r=>{
-    const cls = r.x>=10?"x-high":r.x>=3?"x-mid":"x-low";
-    const xtxt = r.x>=999?"∞":(r.x>=10?Math.round(r.x):r.x.toFixed(1))+"×";
-    const ago = Math.round((Date.now()-new Date(r.date))/864e5);
-    return `<a class="vcard" href="https://youtu.be/${r.id}" target="_blank">
-      <div class="thumb"><img loading="lazy" src="${r.thumb}" alt="">
-        <span class="badge ${cls}">${xtxt}</span><span class="dur">${r.dur}</span></div>
-      <div class="vbody">
-        <div class="vtitle">${r.title.replace(/</g,"&lt;")}</div>
-        <div class="vmeta">📺 ${r.channel.replace(/</g,"&lt;")}</div>
-        <div class="stats">
-          <span class="stat">👁 ${num(r.views)}</span>
-          <span class="stat">👥 ${num(r.subs)}</span>
-          <span class="stat">🕒 منذ ${ago} يوم</span>
-        </div>
-      </div></a>`;
-  }).join("")+'</div>';
+function bar(label,val,color){
+  return `<div><div style="display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted)"><span>${label}</span><span>${Math.round(val)}</span></div>
+   <div class="bar"><i style="width:${Math.min(100,val)}%;background:${color}"></i></div></div>`;
 }
-
-function exportCSV(){
-  const rows=[["title","channel","views","subscribers","outlier_x","published","url"]];
-  LAST.forEach(r=>rows.push([r.title.replace(/"/g,'""'),r.channel.replace(/"/g,'""'),r.views,r.subs,r.x.toFixed(2),r.date,"https://youtu.be/"+r.id]));
-  const csv="﻿"+rows.map(r=>r.map(c=>`"${c}"`).join(",")).join("\n");
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
-  a.download="outlier-radar.csv"; a.click();
+function renderReport(){
+  const d=DATA, v= d.score>=66?["v-green","🟢 فرصة ذهبية","النتش صاعد والربح جيد — ادخله الآن"]:
+                  d.score>=42?["v-orange","🟠 منافِس","فرصة موجودة لكن تحتاج تميّزاً ومجهوداً"]:
+                              ["v-red","🔴 مُشبَع","المنافسة قوية/قديمة — فكّر في زاوية أدق أو نتش آخر"];
+  const monPillar=(n)=>"●".repeat(n)+"○".repeat(5-n);
+  const rows=d.channels.map(c=>{
+    const rising=c.ageYears>1.5 && c.recent90>=3 && c.viral>3;
+    return `<tr>
+      <td>${c.title.replace(/</g,"&lt;")} ${HIGH_RPM_GEO[c.country]?'🌍':''}</td>
+      <td>${num(c.subs)}</td>
+      <td class="${c.viral>=5?'pos':c.viral<2?'neg':''}">${c.viral>=50?'∞':c.viral.toFixed(1)}×</td>
+      <td>${num(c.avgViews)}</td>
+      <td>${c.eng.toFixed(1)}%</td>
+      <td>${c.ageYears.toFixed(1)} سنة</td>
+      <td>${c.recent90} ${rising?'🚀':''}</td></tr>`;}).join("");
+  const estLow=Math.round(d.channels.reduce((s,c)=>s+c.avgViews,0)/d.channels.length*d.meta.rpm[0]/1000);
+  const estHigh=Math.round(d.channels.reduce((s,c)=>s+c.avgViews,0)/d.channels.length*d.meta.rpm[1]/1000);
+  $("#report").innerHTML=`
+    <div class="verdict ${v[0]}"><div class="score">${d.score}/100</div><h2>${v[1]}</h2><p>${v[2]}</p></div>
+    <div class="secttl">📊 المؤشّرات الأساسية</div>
+    <div class="cards">
+      <div class="metric"><div class="k">معامل الانتشار (متوسط)</div><div class="v">${d.avgViral.toFixed(1)}×</div><small>مشاهدات ÷ مشتركين. الأعلى = الخوارزمية تدفع للعامة = فرصة للمبتدئ.</small></div>
+      <div class="metric"><div class="k">الزخم الحديث</div><div class="v">${d.avgRecent.toFixed(1)}</div><small>متوسط فيديوهات آخر 90 يوماً عند المنافسين. مرتفع = نتش حيّ.</small></div>
+      <div class="metric"><div class="k">RPM تقديري (بالدولار)</div><div class="v">$${d.meta.rpm[0]}–$${d.meta.rpm[1]}</div><small>تقديري حسب التصنيف. دخل إعلاني متوقّع/الفيديو ≈ $${num(estLow)}–$${num(estHigh)}.</small></div>
+      <div class="metric"><div class="k">معدّل التفاعل</div><div class="v">${d.avgEng.toFixed(1)}%</div><small>(إعجابات+تعليقات)÷مشاهدات — جودة الجمهور.</small></div>
+    </div>
+    <div class="secttl">🎯 تفصيل نقاط الفرصة</div>
+    <div class="panel">
+      ${bar("معامل الانتشار",d.sub.sViral,"var(--neon)")}
+      ${bar("الزخم/الحداثة",d.sub.sFresh,"var(--green)")}
+      ${bar("قوة الربح (RPM + مصادر)",d.sub.sMoney,"var(--gold)")}
+      ${bar("انخفاض التشبّع",d.sub.sSat,"var(--accent)")}
+      ${bar("التفاعل",d.sub.sEng,"var(--orange)")}
+    </div>
+    <div class="secttl">💰 مصادر الربح في هذا النتش</div>
+    <div class="cards">
+      <div class="metric"><div class="k">إعلانات (RPM)</div><div class="v" style="font-size:1.1rem;color:var(--gold)">$${d.meta.rpm[0]}–$${d.meta.rpm[1]}</div></div>
+      <div class="metric"><div class="k">أفلييت</div><div class="v" style="font-size:1.2rem">${monPillar(d.meta.aff)}</div></div>
+      <div class="metric"><div class="k">رعايات</div><div class="v" style="font-size:1.2rem">${monPillar(d.meta.spo)}</div></div>
+      <div class="metric"><div class="k">منتجات/كورسات</div><div class="v" style="font-size:1.2rem">${monPillar(d.meta.prod)}</div></div>
+      <div class="metric"><div class="k">ملاءمة "بلا وجه"</div><div class="v" style="font-size:1.2rem">${monPillar(d.meta.faceless)}</div><small>التعليمي بلا وجه = CPM ورعايات أعلى.</small></div>
+      <div class="metric"><div class="k">جمهور مرتفع RPM 🌍</div><div class="v">${d.geoHigh}/${d.channels.length}</div><small>قنوات جمهورها أمريكا/أوروبا (RPM أعلى 5–10×).</small></div>
+    </div>
+    <div class="secttl">🏆 المنافسون (🚀 = صعد حديثاً رغم قِدَم القناة = دليل نتش رابح)</div>
+    <div class="panel" style="overflow:auto">
+      <table><tr><th>القناة</th><th>مشتركون</th><th>انتشار</th><th>متوسط مشاهدات</th><th>تفاعل</th><th>العمر</th><th>فيديوهات/90يوم</th></tr>${rows}</table>
+    </div>
+    <div class="secttl">🔑 الكلمات المفتاحية الأكثر تكراراً عند المنافسين</div>
+    <div class="kw">${d.keywords.map(([w,n])=>`<span>${w} <b style="color:var(--neon)">${n}</b></span>`).join("")||"—"}</div>
+  `;
+  $("#report").style.display="block";
+  $("#report").scrollIntoView({behavior:"smooth"});
 }
 </script>
 </body>
